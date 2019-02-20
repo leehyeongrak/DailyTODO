@@ -511,6 +511,9 @@
                                                         <rect key="frame" x="67.333333333333329" y="7" width="30" height="30"/>
                                                         <state key="normal" title="■"/>
                                                         <state key="selected" title="■"/>
+                                                        <connections>
+                                                            <action selector="tappedTodayButton:" destination="QXu-fe-SmW" eventType="touchUpInside" id="DGt-p6-LAf"/>
+                                                        </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tomorrow" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Rf-Nh-K9T">
                                                         <rect key="frame" x="131.66666666666666" y="8.3333333333333144" width="81.666666666666657" height="27"/>
@@ -522,6 +525,9 @@
                                                         <rect key="frame" x="213.33333333333334" y="7" width="30" height="30"/>
                                                         <state key="normal" title="□"/>
                                                         <state key="selected" title="■"/>
+                                                        <connections>
+                                                            <action selector="tappedTomorrowButton:" destination="QXu-fe-SmW" eventType="touchUpInside" id="1F2-2V-kra"/>
+                                                        </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="/" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wNG-S2-jhG">
                                                         <rect key="frame" x="105.33333333333333" y="8.3333333333333144" width="10.333333333333329" height="27"/>
@@ -622,6 +628,9 @@
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <inset key="contentEdgeInsets" minX="0.0" minY="1" maxX="0.0" maxY="0.0"/>
                                                                 <state key="normal" title="설정□"/>
+                                                                <connections>
+                                                                    <action selector="tappedTimeSettingButton:" destination="QXu-fe-SmW" eventType="touchUpInside" id="kag-Qa-MjU"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -651,6 +660,9 @@
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <inset key="contentEdgeInsets" minX="0.0" minY="1" maxX="0.0" maxY="0.0"/>
                                                                 <state key="normal" title="설정□"/>
+                                                                <connections>
+                                                                    <action selector="tappedLocationSettingButton:" destination="QXu-fe-SmW" eventType="touchUpInside" id="lqz-qs-rGn"/>
+                                                                </connections>
                                                             </button>
                                                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="bkO-2E-b5E">
                                                                 <rect key="frame" x="16" y="62.999999999999957" width="155.33333333333334" height="185.33333333333337"/>
@@ -687,6 +699,9 @@
                                                         <rect key="frame" x="146.66666666666666" y="5.3333333333333712" width="82" height="33"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <state key="normal" title="작성하기✍🏻"/>
+                                                        <connections>
+                                                            <action selector="tappedWriteButton:" destination="QXu-fe-SmW" eventType="touchUpInside" id="sbC-kp-D81"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -730,6 +745,17 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="nvF-AP-Cbq"/>
                     </view>
+                    <connections>
+                        <outlet property="locationLabel" destination="Wh2-bC-IMX" id="qNF-gw-h6x"/>
+                        <outlet property="locationMapView" destination="bkO-2E-b5E" id="nwO-sf-IQf"/>
+                        <outlet property="locationSettingButton" destination="9Ba-GJ-b4a" id="hdK-nG-qIF"/>
+                        <outlet property="memoTextField" destination="uNC-jl-KFH" id="hL3-ry-DeL"/>
+                        <outlet property="timePicker" destination="n82-Ve-8eq" id="Yhy-fE-ZbX"/>
+                        <outlet property="timeSettingButton" destination="Q6v-fF-iMH" id="06g-Fy-wUC"/>
+                        <outlet property="todayButton" destination="yZ5-hG-IPr" id="cOb-On-bcN"/>
+                        <outlet property="todoTextField" destination="gVk-f8-5ZY" id="NFm-N0-qpD"/>
+                        <outlet property="tomorrowButton" destination="R9a-uB-LmN" id="R9R-Iz-iP8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tjJ-Th-61P" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
