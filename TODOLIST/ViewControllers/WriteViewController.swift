@@ -10,12 +10,15 @@ import UIKit
 
 class WriteViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    @IBAction func tappedCloseButton(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Do any additional setup after loading the view.
+    }
 
     /*
     // MARK: - Navigation
