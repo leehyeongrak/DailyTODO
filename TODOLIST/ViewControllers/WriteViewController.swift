@@ -7,19 +7,15 @@
 //
 
 import UIKit
-import MapKit
+import GoogleMaps
+import GooglePlaces
 
 class WriteViewController: UIViewController, UITextFieldDelegate {
     
-    var isToday: Bool = true {
+    var isToday: Bool! {
         didSet {
-            if isToday {
-                todayButton.setTitle("■", for: .normal)
-                tomorrowButton.setTitle("□", for: .normal)
-            } else {
-                todayButton.setTitle("□", for: .normal)
-                tomorrowButton.setTitle("■", for: .normal)
-            }
+            todayButton.isSelected = isToday
+            tomorrowButton.isSelected = !isToday
         }
     }
     
@@ -41,7 +37,6 @@ class WriteViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var timeSettingButton: UIButton!
     
     @IBAction func tappedTimeSettingButton(_ sender: UIButton) {
-//        timeSettingButton.setTitle("설정■", for: .normal)
         timeSettingButton.setTitle("설정■", for: .selected)
         timeSettingButton.isSelected = !timeSettingButton.isSelected
         
@@ -54,14 +49,14 @@ class WriteViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var locationSettingButton: UIButton!
     
     @IBAction func tappedLocationSettingButton(_ sender: UIButton) {
-//        locationSettingButton.setTitle("설정■", for: .normal)
         locationSettingButton.setTitle("설정■", for: .selected)
         locationSettingButton.isSelected = !locationSettingButton.isSelected
     }
     
+    @IBOutlet weak var locationMapView: GMSMapView!
     @IBOutlet weak var locationLabel: UILabel!
     
-    @IBOutlet weak var locationMapView: MKMapView!
+    let locationManager = CLLocationManager()
     // ----------------------------------------------------------
     
     @IBAction func tappedWriteButton(_ sender: UIButton) {
@@ -73,11 +68,61 @@ class WriteViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        isToday = true
         
         todoTextField.delegate = self
         memoTextField.delegate = self
-        // Do any additional setup after loading the view.
+        
+        
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        locationManager.distanceFilter = 50
+        locationManager.startUpdatingLocation()
+        locationManager.delegate = self
+        
+//        move(at: locationManager.location?.coordinate)
+//        setupMapView()
+    }
+    
+    func setupMapView() {
+        
+        let camera = GMSCameraPosition.camera(withLatitude: 28.7041, longitude: 77.1025, zoom: 10.0)
+        locationMapView.camera = camera
+        locationMapView.isUserInteractionEnabled = false
+        
+        // Creates a marker in the center of the map.
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2D(latitude: 28.7041, longitude: 77.1025)
+        marker.title = "Delhi"
+        marker.snippet = "India’s capital"
+        marker.map = locationMapView
+    }
+    
+    func locate(at coordinate: CLLocationCoordinate2D?) {
+        guard let coordinate = coordinate else { return }
+        
+        print("move = \(coordinate)")
+        locationMapView.clear()
+        
+        let latitude = coordinate.latitude
+        let longitude = coordinate.longitude
+        
+        let camera = GMSCameraPosition.camera(withLatitude: latitude, longitude: longitude, zoom: 14.0)
+        locationMapView.camera = camera
+        locationMapView.isUserInteractionEnabled = false
+        
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        marker.title = "My Position"
+        marker.snippet = "Known"
+        marker.map = locationMapView
+    }
+    
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
@@ -88,4 +133,15 @@ class WriteViewController: UIViewController, UITextFieldDelegate {
         self.view.endEditing(true)
     }
 
+}
+
+extension WriteViewController: CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let firstLocation = locations.first else {
+            return
+        }
+        
+        locate(at: firstLocation.coordinate)
+    }
 }
