@@ -7,9 +7,13 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var tasks: [Task] = []
+    
     @IBOutlet weak var todayTableView: UITableView!
     @IBOutlet weak var tomorrowTableView: UITableView!
     
@@ -28,6 +32,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tomorrowTableView.dataSource = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        reloadDataWithGettingData()
+    }
+    
+    func reloadDataWithGettingData() {
+        do {
+            tasks = try context.fetch(Task.fetchRequest())
+        } catch  {
+            print("Fetching Failed")
+        }
+        
+        self.todayTableView.reloadData()
+        self.tomorrowTableView.reloadData()
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath == selectedRowIndex {
             selectedRowIndex = nil
@@ -36,7 +55,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         switch tableView {
-            
         case todayTableView:
             selectedTableIndex = 0
             todayTableView.beginUpdates()
@@ -54,7 +72,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            print("지운다아아아아아아아아아아아아앙")
+            let task = tasks[indexPath.row]
+            context.delete(task)
+            (UIApplication.shared.delegate as! AppDelegate).saveContext()
             
+            reloadDataWithGettingData()
         }
     }
     
@@ -70,7 +93,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch tableView {
         case todayTableView:
-            return 2
+            return tasks.count
         default:
             return 1
         }
@@ -82,6 +105,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "TodayCell", for: indexPath) as? TodayTableViewCell else {
                 return UITableViewCell()
             }
+            let task = tasks[indexPath.row]
+            
+            if let todo = task.todo {
+                cell.todoLabel.text = todo
+            }
+            
             return cell
         default:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "TomorrowCell", for: indexPath) as? TomorrowTableViewCell else {
@@ -90,11 +119,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             return cell
         }
     }
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? WriteViewController {
+            vc.delegate = self
+            print("성공")
+        }
+        print("실패")
+        
+    }
 }
 
 class TodayTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var todoLabel: UILabel!
     override func awakeFromNib() {
         self.selectionStyle = .none
     }
@@ -105,3 +143,14 @@ class TomorrowTableViewCell: UITableViewCell {
         self.selectionStyle = .none
     }
 }
+
+protocol NotifyWritingDelegate {
+    func notifyWriting()
+}
+
+extension ViewController: NotifyWritingDelegate {
+    func notifyWriting() {
+        reloadDataWithGettingData()
+    }
+}
+

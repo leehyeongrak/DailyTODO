@@ -9,8 +9,11 @@
 import UIKit
 import GoogleMaps
 import GooglePlaces
+import CoreData
 
 class WriteViewController: UIViewController, UITextFieldDelegate {
+    
+    var delegate: NotifyWritingDelegate?
     
     var isToday: Bool! {
         didSet {
@@ -62,6 +65,15 @@ class WriteViewController: UIViewController, UITextFieldDelegate {
     // ----------------------------------------------------------
     
     @IBAction func tappedWriteButton(_ sender: UIButton) {
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        let task = Task(context: context)
+        task.todo = todoTextField.text!
+        
+        // Save the data to coredata
+        (UIApplication.shared.delegate as! AppDelegate).saveContext()
+        
+        self.dismiss(animated: true, completion: nil)
+        self.delegate?.notifyWriting()
     }
     
     @IBAction func tappedCloseButton(_ sender: UIButton) {
@@ -83,7 +95,7 @@ class WriteViewController: UIViewController, UITextFieldDelegate {
         placesClient.currentPlace { (placeLikelihoodList, error) in
             if error != nil {
                 print("==================ERROR================")
-                print(error)
+                print(error!)
                 print("=======================================")
                 return
             }

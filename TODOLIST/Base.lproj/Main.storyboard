@@ -226,6 +226,9 @@
                                                         <constraint firstItem="KoR-iX-Qq7" firstAttribute="top" secondItem="sX4-kD-4ZL" secondAttribute="top" id="y54-L3-m6j"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="todoLabel" destination="elr-vY-tvZ" id="nCZ-eF-cbz"/>
+                                                </connections>
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
@@ -767,10 +770,10 @@
             </objects>
             <point key="canvasLocation" x="2976.8000000000002" y="131.52709359605913"/>
         </scene>
-        <!--Map View Controller-->
+        <!--View Controller-->
         <scene sceneID="2vK-Vc-xMq">
             <objects>
-                <viewController modalPresentationStyle="overFullScreen" id="7ag-8h-UGh" customClass="MapViewController" customModule="TODOLIST" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="overFullScreen" id="7ag-8h-UGh" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ixd-2w-29m">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
