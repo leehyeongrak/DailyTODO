@@ -56,8 +56,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kOJ-Sl-NIZ">
                                 <rect key="frame" x="0.0" y="120.00000000000003" width="375" height="304.66666666666674"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today's TODO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JBP-wP-UOR">
-                                        <rect key="frame" x="16" y="16" width="134.33333333333334" height="27"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today's TASK" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JBP-wP-UOR">
+                                        <rect key="frame" x="16" y="16" width="135" height="27"/>
                                         <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="AppleColorEmoji" family="Apple Color Emoji" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -102,7 +102,6 @@
                                                                             <subviews>
                                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VEn-Y5-ESr">
                                                                                     <rect key="frame" x="8" y="5" width="30" height="30"/>
-                                                                                    <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" constant="30" id="8f8-6M-vug"/>
                                                                                         <constraint firstAttribute="height" constant="30" id="b99-91-ETr"/>
@@ -130,7 +129,6 @@
                                                                             <subviews>
                                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wqt-Vd-yYp">
                                                                                     <rect key="frame" x="8" y="5" width="30" height="30"/>
-                                                                                    <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" constant="30" id="1pT-Nk-lTs"/>
                                                                                         <constraint firstAttribute="height" constant="30" id="JVj-7s-8RY"/>
@@ -187,7 +185,7 @@
                                                                 </label>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vy3-IS-Wdq">
                                                                     <rect key="frame" x="8" y="10" width="30" height="30"/>
-                                                                    <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="30" id="2eK-2R-E1k"/>
                                                                         <constraint firstAttribute="height" constant="30" id="4jb-4c-t0U"/>
@@ -196,7 +194,7 @@
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hva-Lp-1SH">
                                                                     <rect key="frame" x="337" y="10" width="30" height="30"/>
-                                                                    <color key="backgroundColor" red="0.99942404029999998" green="0.98555368190000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="30" id="DlA-UG-lM9"/>
                                                                         <constraint firstAttribute="width" constant="30" id="b4g-p8-dct"/>
@@ -227,6 +225,10 @@
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
+                                                    <outlet property="alarmOnOffButton" destination="Hva-Lp-1SH" id="EwJ-mN-qwg"/>
+                                                    <outlet property="alarmTimeLabel" destination="jvT-67-y0w" id="HQh-5J-wfg"/>
+                                                    <outlet property="checkDoneButton" destination="vy3-IS-Wdq" id="zH6-op-7Eu"/>
+                                                    <outlet property="memoLabel" destination="rLp-C5-CNf" id="tMM-1Y-ifI"/>
                                                     <outlet property="todoLabel" destination="elr-vY-tvZ" id="nCZ-eF-cbz"/>
                                                 </connections>
                                             </tableViewCell>
@@ -254,7 +256,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nrh-Zr-SCo">
                                 <rect key="frame" x="0.0" y="424.66666666666674" width="375" height="304.33333333333326"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tomorrow's TODO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OuY-HR-NI3">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tomorrow's TASK" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OuY-HR-NI3">
                                         <rect key="frame" x="16" y="16" width="165" height="27"/>
                                         <color key="backgroundColor" red="0.0" green="0.99143940210000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="AppleColorEmoji" family="Apple Color Emoji" pointSize="17"/>
@@ -300,7 +302,6 @@
                                                                             <subviews>
                                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ysf-VM-5st">
                                                                                     <rect key="frame" x="8" y="5" width="30" height="30"/>
-                                                                                    <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" constant="30" id="GZP-Lh-AIO"/>
                                                                                         <constraint firstAttribute="width" constant="30" id="qI5-w6-dqV"/>
@@ -328,7 +329,6 @@
                                                                             <subviews>
                                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JZw-y1-nah">
                                                                                     <rect key="frame" x="8" y="5" width="30" height="30"/>
-                                                                                    <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" constant="30" id="UVU-YD-EYI"/>
                                                                                         <constraint firstAttribute="height" constant="30" id="ruO-h9-vWD"/>
@@ -472,6 +472,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="currentTimeLabel" destination="P9z-09-Ksx" id="aCv-oJ-XVp"/>
                         <outlet property="todayTableView" destination="abB-xc-RSw" id="3PC-n4-hsD"/>
                         <outlet property="tomorrowTableView" destination="HZ7-Xb-cYH" id="Nx2-d5-hf6"/>
                     </connections>
