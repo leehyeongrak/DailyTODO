@@ -12,13 +12,16 @@ import CoreData
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    var tasks: [Task] = []
+    var todayTasks: [TodayTask] = []
+    var tomorrowTasks: [TomorrowTask] = []
     
     @IBOutlet weak var todayTableView: UITableView!
     @IBOutlet weak var tomorrowTableView: UITableView!
     
     private var selectedRowIndex: IndexPath?
     private var selectedTableIndex: Int?
+    
+    @IBOutlet weak var currentTimeLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +33,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         todayTableView.dataSource = self
         tomorrowTableView.delegate = self
         tomorrowTableView.dataSource = self
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy. MM. dd. EEEE"
+        currentTimeLabel.text = dateFormatter.string(from: Date())
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,7 +45,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func reloadDataWithGettingData() {
         do {
-            tasks = try context.fetch(Task.fetchRequest())
+            todayTasks = try context.fetch(TodayTask.fetchRequest())
         } catch  {
             print("Fetching Failed")
         }
@@ -72,11 +79,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            print("지운다아아아아아아아아아아아아앙")
-            let task = tasks[indexPath.row]
-            context.delete(task)
-            (UIApplication.shared.delegate as! AppDelegate).saveContext()
-            
+            if tableView == todayTableView {
+                let task = todayTasks[indexPath.row]
+                context.delete(task)
+                (UIApplication.shared.delegate as! AppDelegate).saveContext()
+            } else if tableView == tomorrowTableView {
+                print("미구현단계입니다")
+            }
             reloadDataWithGettingData()
         }
     }
@@ -93,9 +102,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch tableView {
         case todayTableView:
-            return tasks.count
+            return todayTasks.count
         default:
-            return 1
+            return 0
         }
     }
     
@@ -105,10 +114,31 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "TodayCell", for: indexPath) as? TodayTableViewCell else {
                 return UITableViewCell()
             }
-            let task = tasks[indexPath.row]
+            let task = todayTasks[indexPath.row]
             
-            if let todo = task.todo {
-                cell.todoLabel.text = todo
+            if let todoText = task.todoText, let memoText = task.memoText, let alarmTime = task.alarmTime {
+                cell.todoLabel.text = todoText
+                cell.memoLabel.text = memoText
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "HH:mm a"
+                dateFormatter.amSymbol = "AM"
+                dateFormatter.pmSymbol = "PM"
+                cell.alarmTimeLabel.text = dateFormatter.string(from: alarmTime)
+
+                if task.alarmOnOff {
+                    cell.alarmOnOffButton.backgroundColor = .yellow
+                } else {
+                    cell.alarmOnOffButton.backgroundColor = .white
+                }
+                
+                if task.checkDone {
+                    cell.checkDoneButton.backgroundColor = .blue
+                } else {
+                    cell.checkDoneButton.backgroundColor = .white
+                }
+                
+                
             }
             
             return cell
@@ -133,6 +163,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 class TodayTableViewCell: UITableViewCell {
     
     @IBOutlet weak var todoLabel: UILabel!
+    @IBOutlet weak var memoLabel: UILabel!
+    @IBOutlet weak var checkDoneButton: UIButton!
+    @IBOutlet weak var alarmOnOffButton: UIButton!
+    @IBOutlet weak var alarmTimeLabel: UILabel!
+    
     override func awakeFromNib() {
         self.selectionStyle = .none
     }
@@ -154,3 +189,10 @@ extension ViewController: NotifyWritingDelegate {
     }
 }
 
+extension UIColor {
+    class var whiteGray: UIColor {
+        get {
+            return UIColor(red: 200, green: 200, blue: 200, alpha: 1)
+        }
+    }
+}

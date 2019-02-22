@@ -65,13 +65,39 @@ class WriteViewController: UIViewController, UITextFieldDelegate {
     // ----------------------------------------------------------
     
     @IBAction func tappedWriteButton(_ sender: UIButton) {
+        if todoTextField.text == "" {
+            let alert = UIAlertController(title: nil, message: "할 일을 입력해주세요✍🏻", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            present(alert, animated: true, completion: nil)
+            
+            return
+        }
+        
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        let task = Task(context: context)
-        task.todo = todoTextField.text!
+        
+        if isToday {
+            let task = TodayTask(context: context)
+            task.todoText = todoTextField.text
+            task.memoText = memoTextField.text
+            task.creationTime = Date()
+            task.alarmTime = timePicker.date
+            if timeSettingButton.state == .selected {
+                task.alarmOnOff = true
+            } else {
+                task.alarmOnOff = false
+            }
+            task.checkDone = false
+        } else {
+            let alert = UIAlertController(title: nil, message: "미구현단계", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            present(alert, animated: true, completion: nil)
+            
+            return
+        }
         
         // Save the data to coredata
         (UIApplication.shared.delegate as! AppDelegate).saveContext()
-        
+
         self.dismiss(animated: true, completion: nil)
         self.delegate?.notifyWriting()
     }
