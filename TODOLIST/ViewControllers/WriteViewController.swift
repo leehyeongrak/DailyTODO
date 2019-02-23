@@ -60,8 +60,6 @@ class WriteViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var locationLabel: UILabel!
     
     var placesClient: GMSPlacesClient!
-    
-//    let locationManager = CLLocationManager()
     // ----------------------------------------------------------
     
     @IBAction func tappedWriteButton(_ sender: UIButton) {
@@ -80,11 +78,12 @@ class WriteViewController: UIViewController, UITextFieldDelegate {
             task.todoText = todoTextField.text
             task.memoText = memoTextField.text
             task.creationTime = Date()
-            task.alarmTime = timePicker.date
             if timeSettingButton.state == .selected {
                 task.alarmOnOff = true
+                task.alarmTime = timePicker.date
             } else {
                 task.alarmOnOff = false
+                task.alarmTime = nil
             }
             task.checkDone = false
         } else {

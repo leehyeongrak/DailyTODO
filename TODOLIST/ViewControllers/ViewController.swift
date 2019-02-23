@@ -41,6 +41,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewWillAppear(_ animated: Bool) {
         reloadDataWithGettingData()
+        
     }
     
     func reloadDataWithGettingData() {
@@ -116,7 +117,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             let task = todayTasks[indexPath.row]
             
-            if let todoText = task.todoText, let memoText = task.memoText, let alarmTime = task.alarmTime {
+            cell.task = task
+            
+            if let todoText = task.todoText, let memoText = task.memoText {
+                
                 cell.todoLabel.text = todoText
                 cell.memoLabel.text = memoText
                 
@@ -124,21 +128,29 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 dateFormatter.dateFormat = "HH:mm a"
                 dateFormatter.amSymbol = "AM"
                 dateFormatter.pmSymbol = "PM"
-                cell.alarmTimeLabel.text = dateFormatter.string(from: alarmTime)
+                
+                // 시간설정 여부에 따른 옵셔널값 처리
+                if task.alarmTime == nil {
+                    cell.alarmTimeLabel.text = "설정되지 않았습니다"
+                } else {
+                    cell.alarmTimeLabel.text = dateFormatter.string(from: task.alarmTime!)
+                }
 
                 if task.alarmOnOff {
+                    cell.alarmOnOffButton.setTitle("🔔", for: .normal)
                     cell.alarmOnOffButton.backgroundColor = .yellow
                 } else {
+                    cell.alarmOnOffButton.setTitle("🔕", for: .normal)
                     cell.alarmOnOffButton.backgroundColor = .white
                 }
                 
                 if task.checkDone {
-                    cell.checkDoneButton.backgroundColor = .blue
+                    cell.checkDoneButton.setTitle("✅", for: .normal)
                 } else {
-                    cell.checkDoneButton.backgroundColor = .white
+                    cell.checkDoneButton.setTitle("✔️", for: .normal)
                 }
                 
-                
+                cell.alarmLocationLabel.text = "설정되지 않았습니다."
             }
             
             return cell
@@ -162,14 +174,43 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
 class TodayTableViewCell: UITableViewCell {
     
+    var task: TodayTask?
+    
     @IBOutlet weak var todoLabel: UILabel!
     @IBOutlet weak var memoLabel: UILabel!
     @IBOutlet weak var checkDoneButton: UIButton!
     @IBOutlet weak var alarmOnOffButton: UIButton!
     @IBOutlet weak var alarmTimeLabel: UILabel!
+    @IBOutlet weak var alarmLocationLabel: UILabel!
     
+    @IBAction func tappedCheckDoneButton(_ sender: UIButton) {
+        if task!.checkDone {
+            checkDoneButton.setTitle("✔️", for: .normal)
+        } else {
+            checkDoneButton.setTitle("✅", for: .normal)
+        }
+        
+        task?.checkDone = !((task?.checkDone)!)
+        (UIApplication.shared.delegate as! AppDelegate).saveContext()
+    }
+    @IBAction func tappedAlarmOnOffButton(_ sender: UIButton) {
+        if task!.alarmOnOff {
+            alarmOnOffButton.setTitle("🔕", for: .normal)
+            alarmOnOffButton.backgroundColor = .white
+        } else {
+            alarmOnOffButton.setTitle("🔔", for: .normal)
+            alarmOnOffButton.backgroundColor = .yellow
+            
+        }
+        
+        task?.alarmOnOff = !((task?.alarmOnOff)!)
+        (UIApplication.shared.delegate as! AppDelegate).saveContext()
+    }
     override func awakeFromNib() {
         self.selectionStyle = .none
+        
+        alarmOnOffButton.layer.cornerRadius = 15
+        alarmOnOffButton.layer.masksToBounds = true
     }
 }
 
