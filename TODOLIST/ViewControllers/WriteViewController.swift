@@ -13,7 +13,7 @@ import CoreData
 
 class WriteViewController: UIViewController, UITextFieldDelegate {
     
-    var delegate: NotifyWritingDelegate?
+    var delegate: AddTaskDelegate?
     
     var isToday: Bool! {
         didSet {
@@ -98,7 +98,7 @@ class WriteViewController: UIViewController, UITextFieldDelegate {
         (UIApplication.shared.delegate as! AppDelegate).saveContext()
 
         self.dismiss(animated: true, completion: nil)
-        self.delegate?.notifyWriting()
+        self.delegate?.addTask()
     }
     
     @IBAction func tappedCloseButton(_ sender: UIButton) {

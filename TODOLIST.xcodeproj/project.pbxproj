@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3915EB2D221EF2EF00B5857D /* TODOLIST.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3915EB2B221EF2EF00B5857D /* TODOLIST.xcdatamodeld */; };
+		392662A72221DD5800F9388D /* NotificationProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392662A62221DD5800F9388D /* NotificationProcessor.swift */; };
 		393DCE7B221AB387003B26BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393DCE7A221AB387003B26BA /* AppDelegate.swift */; };
 		393DCE7D221AB387003B26BA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393DCE7C221AB387003B26BA /* ViewController.swift */; };
 		393DCE80221AB387003B26BA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 393DCE7E221AB387003B26BA /* Main.storyboard */; };
@@ -23,6 +24,7 @@
 		27407A613A0E75C5C76B9089 /* Pods-TODOLIST.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TODOLIST.release.xcconfig"; path = "Pods/Target Support Files/Pods-TODOLIST/Pods-TODOLIST.release.xcconfig"; sourceTree = "<group>"; };
 		2C53A549A09E3A24110313E5 /* Pods-TODOLIST.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TODOLIST.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TODOLIST/Pods-TODOLIST.debug.xcconfig"; sourceTree = "<group>"; };
 		3915EB2C221EF2EF00B5857D /* TODOLIST.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TODOLIST.xcdatamodel; sourceTree = "<group>"; };
+		392662A62221DD5800F9388D /* NotificationProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationProcessor.swift; sourceTree = "<group>"; };
 		393DCE77221AB387003B26BA /* TODOLIST.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TODOLIST.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		393DCE7A221AB387003B26BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		393DCE7C221AB387003B26BA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 		3915EB2E221F129500B5857D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				392662A62221DD5800F9388D /* NotificationProcessor.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 				3915EB2D221EF2EF00B5857D /* TODOLIST.xcdatamodeld in Sources */,
 				39E08F70221CE3200029C1B3 /* WriteViewController.swift in Sources */,
 				393DCE7B221AB387003B26BA /* AppDelegate.swift in Sources */,
+				392662A72221DD5800F9388D /* NotificationProcessor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
