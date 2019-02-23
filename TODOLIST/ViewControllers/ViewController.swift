@@ -8,13 +8,20 @@
 
 import UIKit
 import CoreData
+import UserNotifications
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UNUserNotificationCenterDelegate {
     
+    // CoreDate 프로퍼티
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var todayTasks: [TodayTask] = []
     var tomorrowTasks: [TomorrowTask] = []
     
+    // UserNotifications 프로퍼티
+    let center = UNUserNotificationCenter.current()
+    let options: UNAuthorizationOptions = [.alert, .sound]
+    
+    // Storyboard 아울렛
     @IBOutlet weak var todayTableView: UITableView!
     @IBOutlet weak var tomorrowTableView: UITableView!
     
@@ -23,8 +30,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBOutlet weak var currentTimeLabel: UILabel!
     
+    // ViewDidLoad() //////////////////////////////////////////////////
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        center.requestAuthorization(options: options) { (didAllow, error) in
+            print(didAllow)
+        }
         
         navigationController?.navigationBar.barTintColor = .white
         navigationController?.navigationBar.shadowImage = UIImage()
@@ -40,11 +52,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        reloadDataWithGettingData()
+        fetchAndReloadData()
         
     }
     
-    func reloadDataWithGettingData() {
+    func fetchAndReloadData() {
         do {
             todayTasks = try context.fetch(TodayTask.fetchRequest())
         } catch  {
@@ -54,6 +66,32 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.todayTableView.reloadData()
         self.tomorrowTableView.reloadData()
     }
+    
+//    func addTimeNotification(task: TodayTask) {
+//        let identifire = "\(task.creationTime!)"
+//        let content = UNMutableNotificationContent()
+//        if let todoText = task.todoText {
+//            content.title = "⏰약속한 시간이에요. 할 일을 확인해 주세요!"
+//            content.body = "\(todoText)"
+//            content.sound = UNNotificationSound.default
+//        }
+//
+//        let calender = Calendar.current
+//
+//        if let date = task.alarmTime {
+//            let components = calender.dateComponents([.day, .minute, .hour], from: date)
+//
+//            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+//            let request = UNNotificationRequest(identifier: identifire, content: content, trigger: trigger)
+//
+//            center.add(request) { (error) in
+//                print(error?.localizedDescription ?? "")
+//            }
+//            print("\(identifire)의 알림이 추가되었습니다.")
+//        } else {
+//            return
+//        }
+//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath == selectedRowIndex {
@@ -87,7 +125,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             } else if tableView == tomorrowTableView {
                 print("미구현단계입니다")
             }
-            reloadDataWithGettingData()
+            fetchAndReloadData()
         }
     }
     
@@ -137,6 +175,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
 
                 if task.alarmOnOff {
+//                    addTimeNotification(task: task)
+                    NotificationProcessor.addTimeNotification(task: task)
                     cell.alarmOnOffButton.setTitle("🔔", for: .normal)
                     cell.alarmOnOffButton.backgroundColor = .yellow
                 } else {
@@ -172,6 +212,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 }
 
+// Custom Cells //////////////////////////////////////////////////
 class TodayTableViewCell: UITableViewCell {
     
     var task: TodayTask?
@@ -195,9 +236,13 @@ class TodayTableViewCell: UITableViewCell {
     }
     @IBAction func tappedAlarmOnOffButton(_ sender: UIButton) {
         if task!.alarmOnOff {
+            NotificationProcessor.removeTimeNotification(task: task!)
+//            task?.removeTimeNotification()
             alarmOnOffButton.setTitle("🔕", for: .normal)
             alarmOnOffButton.backgroundColor = .white
         } else {
+            NotificationProcessor.addTimeNotification(task: task!)
+//            task?.addTimeNotification()
             alarmOnOffButton.setTitle("🔔", for: .normal)
             alarmOnOffButton.backgroundColor = .yellow
             
@@ -220,13 +265,14 @@ class TomorrowTableViewCell: UITableViewCell {
     }
 }
 
-protocol NotifyWritingDelegate {
-    func notifyWriting()
+// Protocols & Extensions //////////////////////////////////////////////////
+protocol AddTaskDelegate {
+    func addTask()
 }
 
-extension ViewController: NotifyWritingDelegate {
-    func notifyWriting() {
-        reloadDataWithGettingData()
+extension ViewController: AddTaskDelegate {
+    func addTask() {
+        fetchAndReloadData()
     }
 }
 
@@ -237,3 +283,38 @@ extension UIColor {
         }
     }
 }
+
+//extension TodayTask {
+//    func addTimeNotification() {
+//        let identifire = "\(self.creationTime!)"
+//        let content = UNMutableNotificationContent()
+//        if let todoText = self.todoText {
+//            content.title = "고고"
+//            content.body = "\(todoText)"
+//            content.sound = UNNotificationSound.default
+//        }
+//
+//        let calender = Calendar.current
+//
+//        if let date = self.alarmTime {
+//            let components = calender.dateComponents([.day, .minute, .hour], from: date)
+//
+//            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+//            let request = UNNotificationRequest(identifier: identifire, content: content, trigger: trigger)
+//
+//
+//            UNUserNotificationCenter.current().add(request) { (error) in
+//                print(error?.localizedDescription ?? "")
+//            }
+//            print("\(identifire)의 알림이 추가되었습니다.")
+//        } else {
+//            return
+//        }
+//    }
+//
+//    func removeTimeNotification() {
+//        let identifire = "\(self.creationTime!)"
+//        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifire])
+//        print("\(identifire)의 알림이 삭제되었습니다.")
+//    }
+//}
