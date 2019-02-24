@@ -67,32 +67,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.tomorrowTableView.reloadData()
     }
     
-//    func addTimeNotification(task: TodayTask) {
-//        let identifire = "\(task.creationTime!)"
-//        let content = UNMutableNotificationContent()
-//        if let todoText = task.todoText {
-//            content.title = "⏰약속한 시간이에요. 할 일을 확인해 주세요!"
-//            content.body = "\(todoText)"
-//            content.sound = UNNotificationSound.default
-//        }
-//
-//        let calender = Calendar.current
-//
-//        if let date = task.alarmTime {
-//            let components = calender.dateComponents([.day, .minute, .hour], from: date)
-//
-//            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-//            let request = UNNotificationRequest(identifier: identifire, content: content, trigger: trigger)
-//
-//            center.add(request) { (error) in
-//                print(error?.localizedDescription ?? "")
-//            }
-//            print("\(identifire)의 알림이 추가되었습니다.")
-//        } else {
-//            return
-//        }
-//    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath == selectedRowIndex {
             selectedRowIndex = nil
@@ -172,16 +146,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     cell.alarmTimeLabel.text = "설정되지 않았습니다"
                 } else {
                     cell.alarmTimeLabel.text = dateFormatter.string(from: task.alarmTime!)
-                }
-
-                if task.alarmOnOff {
-//                    addTimeNotification(task: task)
-                    NotificationProcessor.addTimeNotification(task: task)
-                    cell.alarmOnOffButton.setTitle("🔔", for: .normal)
-                    cell.alarmOnOffButton.backgroundColor = .yellow
-                } else {
-                    cell.alarmOnOffButton.setTitle("🔕", for: .normal)
-                    cell.alarmOnOffButton.backgroundColor = .white
+                    if task.alarmTime! <= Date() {
+                        cell.alarmOnOffButton.setTitle("🔕", for: .normal)
+                    } else {
+                        if task.alarmOnOff {
+                            NotificationProcessor.addTimeNotification(task: task)
+                            cell.alarmOnOffButton.setTitle("🔔", for: .normal)
+                        } else {
+                            cell.alarmOnOffButton.setTitle("🔕", for: .normal)
+                        }
+                    }
                 }
                 
                 if task.checkDone {
@@ -205,10 +179,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? WriteViewController {
             vc.delegate = self
-            print("성공")
         }
-        print("실패")
-        
     }
 }
 
@@ -235,17 +206,21 @@ class TodayTableViewCell: UITableViewCell {
         (UIApplication.shared.delegate as! AppDelegate).saveContext()
     }
     @IBAction func tappedAlarmOnOffButton(_ sender: UIButton) {
+        
+        if task?.alarmTime == nil {
+            return
+        } else {
+            if (task?.alarmTime)! <= Date() {
+                return
+            }
+        }
+        
         if task!.alarmOnOff {
             NotificationProcessor.removeTimeNotification(task: task!)
-//            task?.removeTimeNotification()
             alarmOnOffButton.setTitle("🔕", for: .normal)
-            alarmOnOffButton.backgroundColor = .white
         } else {
             NotificationProcessor.addTimeNotification(task: task!)
-//            task?.addTimeNotification()
             alarmOnOffButton.setTitle("🔔", for: .normal)
-            alarmOnOffButton.backgroundColor = .yellow
-            
         }
         
         task?.alarmOnOff = !((task?.alarmOnOff)!)
@@ -276,45 +251,3 @@ extension ViewController: AddTaskDelegate {
     }
 }
 
-extension UIColor {
-    class var whiteGray: UIColor {
-        get {
-            return UIColor(red: 200, green: 200, blue: 200, alpha: 1)
-        }
-    }
-}
-
-//extension TodayTask {
-//    func addTimeNotification() {
-//        let identifire = "\(self.creationTime!)"
-//        let content = UNMutableNotificationContent()
-//        if let todoText = self.todoText {
-//            content.title = "고고"
-//            content.body = "\(todoText)"
-//            content.sound = UNNotificationSound.default
-//        }
-//
-//        let calender = Calendar.current
-//
-//        if let date = self.alarmTime {
-//            let components = calender.dateComponents([.day, .minute, .hour], from: date)
-//
-//            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
-//            let request = UNNotificationRequest(identifier: identifire, content: content, trigger: trigger)
-//
-//
-//            UNUserNotificationCenter.current().add(request) { (error) in
-//                print(error?.localizedDescription ?? "")
-//            }
-//            print("\(identifire)의 알림이 추가되었습니다.")
-//        } else {
-//            return
-//        }
-//    }
-//
-//    func removeTimeNotification() {
-//        let identifire = "\(self.creationTime!)"
-//        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifire])
-//        print("\(identifire)의 알림이 삭제되었습니다.")
-//    }
-//}
