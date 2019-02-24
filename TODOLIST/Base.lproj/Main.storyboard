@@ -678,7 +678,7 @@
                                                                     <action selector="tappedLocationSettingButton:" destination="QXu-fe-SmW" eventType="touchUpInside" id="lqz-qs-rGn"/>
                                                                 </connections>
                                                             </button>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MxX-l2-S6o" customClass="GMSMapView">
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MxX-l2-S6o">
                                                                 <rect key="frame" x="16" y="62.999999999999957" width="155.33333333333334" height="185.33333333333337"/>
                                                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </view>

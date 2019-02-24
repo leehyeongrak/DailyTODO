@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import GoogleMaps
-import GooglePlaces
 import CoreData
 
 class WriteViewController: UIViewController, UITextFieldDelegate {
@@ -56,10 +54,8 @@ class WriteViewController: UIViewController, UITextFieldDelegate {
         locationSettingButton.isSelected = !locationSettingButton.isSelected
     }
     
-    @IBOutlet weak var locationMapView: GMSMapView!
     @IBOutlet weak var locationLabel: UILabel!
     
-    var placesClient: GMSPlacesClient!
     // ----------------------------------------------------------
     
     @IBAction func tappedWriteButton(_ sender: UIButton) {
@@ -111,42 +107,6 @@ class WriteViewController: UIViewController, UITextFieldDelegate {
         
         todoTextField.delegate = self
         memoTextField.delegate = self
-        
-        placesClient = GMSPlacesClient.shared()
-        getCurrentPlace()
-    }
-
-    func getCurrentPlace() {    
-        placesClient.currentPlace { (placeLikelihoodList, error) in
-            if error != nil {
-                print("==================ERROR================")
-                print(error!)
-                print("=======================================")
-                return
-            }
-            
-            self.locationLabel.text = "No current place"
-            if let placeLikelihoodList = placeLikelihoodList {
-                let place = placeLikelihoodList.likelihoods.first?.place
-                if let place = place {
-                    self.locationLabel.text = place.name
-                    print("=======================================")
-                    print(place)
-                    print("=======================================")
-                    
-                    let latitude = place.coordinate.latitude
-                    let longitude = place.coordinate.longitude
-                    let camera = GMSCameraPosition.camera(withLatitude: latitude, longitude: longitude, zoom: 14.0)
-                    self.locationMapView.camera = camera
-                    
-                    let marker = GMSMarker()
-                    marker.position = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-                    marker.title = place.name
-                    marker.snippet = place.formattedAddress?.components(separatedBy: ", ").joined(separator: "\n")
-                    marker.map = self.locationMapView
-                }
-            }
-        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
