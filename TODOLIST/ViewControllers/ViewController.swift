@@ -106,10 +106,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if let index = selectedRowIndex {
             if index == indexPath {
-                return 150
+                return 115
             }
         }
-        return 50
+        return 40
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -137,13 +137,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 cell.memoLabel.text = memoText
                 
                 let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "HH:mm a"
-                dateFormatter.amSymbol = "AM"
-                dateFormatter.pmSymbol = "PM"
+                dateFormatter.dateFormat = "a hh:mm"
+                dateFormatter.amSymbol = "오전"
+                dateFormatter.pmSymbol = "오후"
                 
                 // 시간설정 여부에 따른 옵셔널값 처리
                 if task.alarmTime == nil {
-                    cell.alarmTimeLabel.text = "설정되지 않았습니다"
+                    cell.alarmTimeLabel.text = ""
                 } else {
                     cell.alarmTimeLabel.text = dateFormatter.string(from: task.alarmTime!)
                     if task.alarmTime! <= Date() {
@@ -159,12 +159,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
                 
                 if task.checkDone {
-                    cell.checkDoneButton.setTitle("✅", for: .normal)
+                    cell.checkDoneButton.setTitle("■", for: .normal)
                 } else {
-                    cell.checkDoneButton.setTitle("✔️", for: .normal)
+                    cell.checkDoneButton.setTitle("□", for: .normal)
                 }
                 
-                cell.alarmLocationLabel.text = "설정되지 않았습니다."
+                cell.alarmLocationLabel.text = ""
             }
             
             return cell
@@ -197,9 +197,9 @@ class TodayTableViewCell: UITableViewCell {
     
     @IBAction func tappedCheckDoneButton(_ sender: UIButton) {
         if task!.checkDone {
-            checkDoneButton.setTitle("✔️", for: .normal)
+            checkDoneButton.setTitle("□", for: .normal)
         } else {
-            checkDoneButton.setTitle("✅", for: .normal)
+            checkDoneButton.setTitle("■", for: .normal)
         }
         
         task?.checkDone = !((task?.checkDone)!)

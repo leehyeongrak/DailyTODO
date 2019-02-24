@@ -14,8 +14,8 @@ class NotificationProcessor {
         let identifire = "\(task.creationTime!)"
         let content = UNMutableNotificationContent()
         if let todoText = task.todoText {
-            content.title = "고고"
-            content.body = "\(todoText)"
+            content.title = "업무를 수행하실 시간이에요!"
+            content.body = "👉\(todoText)"
             content.sound = UNNotificationSound.default
         }
         
