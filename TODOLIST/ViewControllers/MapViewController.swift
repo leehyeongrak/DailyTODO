@@ -14,8 +14,6 @@ class MapViewController: UIViewController, MTMapViewDelegate, UITextFieldDelegat
     
     var searchResult: LocationSearchResult?
     var selectedLocation: Location?
-    var currentCoordinate: MTMapPointGeo?
-    var currentAddress: String?
     
     @IBOutlet var searchTextField: UITextField!
     @IBOutlet var resultPlaceNameLabel: UILabel!
@@ -31,6 +29,10 @@ class MapViewController: UIViewController, MTMapViewDelegate, UITextFieldDelegat
         if selectedLocation != nil {
             self.delegate?.setLocation(location: selectedLocation!)
             dismiss(animated: true, completion: nil)
+        } else {
+            let alert = UIAlertController(title: nil, message: "장소를 선택해주세요📌", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            present(alert, animated: true, completion: nil)
         }
     }
     
@@ -42,13 +44,8 @@ class MapViewController: UIViewController, MTMapViewDelegate, UITextFieldDelegat
         resultsTableView.dataSource = self
         resultMapView.delegate = self
         
-        setupOutlets()
-    }
-    
-    func setupOutlets() {
-        resultPlaceNameLabel.text = "현위치"
-        resultAddressNameLabel.text = currentAddress
-        resultMapView.setMapCenter(MTMapPoint(geoCoord: currentCoordinate!), animated: true)
+        resultPlaceNameLabel.text = "장소를 검색해주세요!"
+        resultAddressNameLabel.text = "설정된 장소를 지날 때 알림을 드립니다🤗"
     }
     
     func setupMapView(lattitude: String, longitude: String) {

@@ -42,7 +42,7 @@
             </objects>
             <point key="canvasLocation" x="1071" y="1659"/>
         </scene>
-        <!--투투리스트-->
+        <!--DailyTODO-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="TODOLIST" customModuleProvider="target" sceneMemberID="viewController">
@@ -499,7 +499,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="투투리스트" id="Ktk-OA-G3W">
+                    <navigationItem key="navigationItem" title="DailyTODO" id="Ktk-OA-G3W">
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="PAj-jU-LYO">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
@@ -709,13 +709,22 @@
                                                                     <segue destination="7ag-8h-UGh" kind="presentation" id="t3o-jh-nX8"/>
                                                                 </connections>
                                                             </button>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MxX-l2-S6o" customClass="MTMapView">
-                                                                <rect key="frame" x="16" y="62.999999999999957" width="155.33333333333334" height="185.33333333333337"/>
-                                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            </view>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="위치가 설정되지 않았습니다." textAlignment="right" lineBreakMode="headTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wh2-bC-IMX">
-                                                                <rect key="frame" x="16" y="42.999999999999943" width="155.33333333333334" height="12"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-----" textAlignment="right" lineBreakMode="headTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wh2-bC-IMX">
+                                                                <rect key="frame" x="147.00000000000003" y="61.333333333333314" width="24.333333333333343" height="12"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MxX-l2-S6o" customClass="MKMapView">
+                                                                <rect key="frame" x="16" y="81.333333333333314" width="155.33333333333334" height="167"/>
+                                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <accessibility key="accessibilityConfiguration">
+                                                                    <accessibilityTraits key="traits" notEnabled="YES"/>
+                                                                </accessibility>
+                                                            </view>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="장소가 설정되지 않았습니다." textAlignment="right" lineBreakMode="headTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YHU-dg-Hv0">
+                                                                <rect key="frame" x="36.333333333333343" y="42.999999999999943" width="135" height="14.333333333333336"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -725,16 +734,19 @@
                                                             <constraint firstItem="MxX-l2-S6o" firstAttribute="leading" secondItem="gIT-K9-X4A" secondAttribute="leading" constant="16" id="0Rw-Ru-fjA"/>
                                                             <constraint firstItem="B3C-0a-Dph" firstAttribute="leading" secondItem="gIT-K9-X4A" secondAttribute="leading" constant="16" id="6NA-f9-bfq"/>
                                                             <constraint firstItem="9Ba-GJ-b4a" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="B3C-0a-Dph" secondAttribute="trailing" constant="8" id="6bx-iL-5NX"/>
+                                                            <constraint firstItem="YHU-dg-Hv0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gIT-K9-X4A" secondAttribute="leading" constant="8" id="7YW-Q8-X1P"/>
                                                             <constraint firstAttribute="trailing" secondItem="MxX-l2-S6o" secondAttribute="trailing" constant="16" id="D3i-JW-lnK"/>
-                                                            <constraint firstAttribute="trailing" secondItem="Wh2-bC-IMX" secondAttribute="trailing" constant="16" id="Ea1-SF-96U"/>
                                                             <constraint firstAttribute="trailing" secondItem="9Ba-GJ-b4a" secondAttribute="trailing" constant="16" id="JVr-n7-sXW"/>
+                                                            <constraint firstItem="Wh2-bC-IMX" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gIT-K9-X4A" secondAttribute="leading" constant="8" id="NZz-nc-Q3j"/>
                                                             <constraint firstItem="B3C-0a-Dph" firstAttribute="top" secondItem="gIT-K9-X4A" secondAttribute="top" constant="8" id="RAQ-kG-EoR"/>
                                                             <constraint firstItem="9Ba-GJ-b4a" firstAttribute="centerY" secondItem="B3C-0a-Dph" secondAttribute="centerY" id="aTe-iM-S7a"/>
                                                             <constraint firstAttribute="bottom" secondItem="MxX-l2-S6o" secondAttribute="bottom" constant="16" id="ajd-cx-R6W"/>
                                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="B3C-0a-Dph" secondAttribute="trailing" constant="16" id="dI7-76-CF7"/>
-                                                            <constraint firstItem="MxX-l2-S6o" firstAttribute="top" secondItem="Wh2-bC-IMX" secondAttribute="bottom" constant="8" id="fMd-KX-X1g"/>
-                                                            <constraint firstItem="Wh2-bC-IMX" firstAttribute="leading" secondItem="gIT-K9-X4A" secondAttribute="leading" constant="16" id="uFC-XM-xDb"/>
-                                                            <constraint firstItem="Wh2-bC-IMX" firstAttribute="top" secondItem="B3C-0a-Dph" secondAttribute="bottom" constant="8" id="vCF-7Y-tYb"/>
+                                                            <constraint firstItem="YHU-dg-Hv0" firstAttribute="top" secondItem="B3C-0a-Dph" secondAttribute="bottom" constant="8" id="eeG-K4-Szl"/>
+                                                            <constraint firstItem="Wh2-bC-IMX" firstAttribute="trailing" secondItem="YHU-dg-Hv0" secondAttribute="trailing" id="lS4-TN-uER"/>
+                                                            <constraint firstItem="Wh2-bC-IMX" firstAttribute="top" secondItem="YHU-dg-Hv0" secondAttribute="bottom" constant="4" id="nsq-ys-M1j"/>
+                                                            <constraint firstItem="MxX-l2-S6o" firstAttribute="top" secondItem="Wh2-bC-IMX" secondAttribute="bottom" constant="8" id="uRn-iD-rJo"/>
+                                                            <constraint firstAttribute="trailing" secondItem="YHU-dg-Hv0" secondAttribute="trailing" constant="16" id="x97-sv-Tro"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
@@ -793,10 +805,11 @@
                         <viewLayoutGuide key="safeArea" id="nvF-AP-Cbq"/>
                     </view>
                     <connections>
-                        <outlet property="locationLabel" destination="Wh2-bC-IMX" id="qNF-gw-h6x"/>
-                        <outlet property="locationMapView" destination="MxX-l2-S6o" id="fgd-Qc-7nL"/>
+                        <outlet property="addressNameLabel" destination="Wh2-bC-IMX" id="qNF-gw-h6x"/>
+                        <outlet property="locationMapView" destination="MxX-l2-S6o" id="ida-j0-wzx"/>
                         <outlet property="locationSettingButton" destination="9Ba-GJ-b4a" id="hdK-nG-qIF"/>
                         <outlet property="memoTextField" destination="uNC-jl-KFH" id="hL3-ry-DeL"/>
+                        <outlet property="placeNameLabel" destination="YHU-dg-Hv0" id="caU-v2-k7T"/>
                         <outlet property="timePicker" destination="n82-Ve-8eq" id="Yhy-fE-ZbX"/>
                         <outlet property="timeSettingButton" destination="Q6v-fF-iMH" id="06g-Fy-wUC"/>
                         <outlet property="todayButton" destination="yZ5-hG-IPr" id="cOb-On-bcN"/>
@@ -811,7 +824,7 @@
         <!--Map View Controller-->
         <scene sceneID="2vK-Vc-xMq">
             <objects>
-                <viewController id="7ag-8h-UGh" customClass="MapViewController" customModule="TODOLIST" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="overFullScreen" id="7ag-8h-UGh" customClass="MapViewController" customModule="TODOLIST" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ixd-2w-29m">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -838,7 +851,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="위치를 검색해주세요" textAlignment="natural" minimumFontSize="17" clearButtonMode="unlessEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Q4z-11-QMi">
+                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="unlessEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Q4z-11-QMi">
                                                         <rect key="frame" x="85.333333333333329" y="14" width="235.66666666666669" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="ask-BK-6Vr"/>
@@ -888,7 +901,9 @@
                                                             <constraint firstAttribute="bottom" secondItem="5uY-JZ-WLe" secondAttribute="bottom" id="HX5-BL-tOt"/>
                                                             <constraint firstItem="dvJ-bm-1P5" firstAttribute="leading" secondItem="fES-yv-Zbr" secondAttribute="leading" id="J5N-s2-8RE"/>
                                                             <constraint firstItem="5uY-JZ-WLe" firstAttribute="top" secondItem="PrS-ba-c3A" secondAttribute="bottom" constant="16" id="QQn-br-rlr"/>
+                                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="PrS-ba-c3A" secondAttribute="trailing" constant="8" id="dTm-9D-adJ"/>
                                                             <constraint firstItem="PrS-ba-c3A" firstAttribute="top" secondItem="dvJ-bm-1P5" secondAttribute="bottom" constant="8" id="hFm-jU-Zsk"/>
+                                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="dvJ-bm-1P5" secondAttribute="trailing" constant="8" id="kxT-lu-AKY"/>
                                                             <constraint firstAttribute="trailing" secondItem="5uY-JZ-WLe" secondAttribute="trailing" id="nfF-1c-KeA"/>
                                                             <constraint firstItem="PrS-ba-c3A" firstAttribute="leading" secondItem="fES-yv-Zbr" secondAttribute="leading" id="nyn-Pq-tSL"/>
                                                             <constraint firstItem="5uY-JZ-WLe" firstAttribute="leading" secondItem="fES-yv-Zbr" secondAttribute="leading" id="zgM-wG-JQF"/>
@@ -976,7 +991,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Ase-Pg-xO3" firstAttribute="leading" secondItem="DAT-Ua-XRu" secondAttribute="leading" id="DdD-5u-7ov"/>
                             <constraint firstAttribute="bottom" secondItem="nSd-oG-DgG" secondAttribute="bottom" id="TGb-jk-Gma"/>

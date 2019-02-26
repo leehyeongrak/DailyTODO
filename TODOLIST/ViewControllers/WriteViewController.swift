@@ -8,8 +8,9 @@
 
 import UIKit
 import CoreData
+import MapKit
 
-class WriteViewController: UIViewController, UITextFieldDelegate, MTMapViewDelegate {
+class WriteViewController: UIViewController, UITextFieldDelegate {
     
     var delegate: AddTaskDelegate?
     
@@ -38,7 +39,6 @@ class WriteViewController: UIViewController, UITextFieldDelegate, MTMapViewDeleg
     @IBOutlet weak var timeSettingButton: UIButton!
     
     @IBAction func tappedTimeSettingButton(_ sender: UIButton) {
-        timeSettingButton.setTitle("설정■", for: .selected)
         timeSettingButton.isSelected = !timeSettingButton.isSelected
         
     }
@@ -50,13 +50,14 @@ class WriteViewController: UIViewController, UITextFieldDelegate, MTMapViewDeleg
     @IBOutlet weak var locationSettingButton: UIButton!
     
     @IBAction func tappedLocationSettingButton(_ sender: UIButton) {
-        locationSettingButton.setTitle("설정■", for: .selected)
-        locationSettingButton.isSelected = !locationSettingButton.isSelected
+        if sender.isSelected {
+            sender.isSelected = false
+        }
     }
     
-    @IBOutlet weak var locationLabel: UILabel!
-    
-    @IBOutlet var locationMapView: MTMapView!
+    @IBOutlet var placeNameLabel: UILabel!
+    @IBOutlet weak var addressNameLabel: UILabel!
+    @IBOutlet var locationMapView: MKMapView!
     
     var selectedLocation: Location?
     // ----------------------------------------------------------
@@ -108,11 +109,10 @@ class WriteViewController: UIViewController, UITextFieldDelegate, MTMapViewDeleg
         super.viewDidLoad()
         isToday = true
         
-        locationMapView.delegate = self
-        setupMapView()
-        
         todoTextField.delegate = self
         memoTextField.delegate = self
+        
+        locationMapView.isUserInteractionEnabled = false
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -124,25 +124,16 @@ class WriteViewController: UIViewController, UITextFieldDelegate, MTMapViewDeleg
         self.view.endEditing(true)
     }
 
-    func setupMapView() {
-        locationMapView.baseMapType = .standard
-        DispatchQueue.global().async {
-            self.locationMapView.currentLocationTrackingMode = MTMapCurrentLocationTrackingMode.onWithoutHeading
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        guard let button = sender as? UIButton else { return false }
+        if button.isSelected {
+            return false
         }
-        print("SetupMapView")
-    }
-    
-    func mapView(_ mapView: MTMapView!, updateCurrentLocation location: MTMapPoint!, withAccuracy accuracy: MTMapLocationAccuracy) {
-        if let address = MTMapReverseGeoCoder.findAddress(for: location, withOpenAPIKey: "d9a4fa482d1ff0ad685736ffd7c9bb2a") {
-            self.locationLabel.text = address
-            locationMapView.currentLocationTrackingMode = MTMapCurrentLocationTrackingMode.off
-        }
+        return true
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? MapViewController {
-            vc.currentCoordinate = locationMapView.mapCenterPoint.mapPointGeo()
-            vc.currentAddress = locationLabel.text
             vc.delegate = self
         }
     }
@@ -154,15 +145,21 @@ protocol SetLocationDelegate {
 
 extension WriteViewController: SetLocationDelegate {
     func setLocation(location: Location) {
-        selectedLocation = location
+        self.locationSettingButton.isSelected = true
         
-        locationLabel.text = selectedLocation?.roadAddressName
+        self.selectedLocation = location
         
+        self.placeNameLabel.text = location.placeName
+        self.addressNameLabel.text = location.roadAddressName
         
-        guard let latitude = Double(selectedLocation!.y), let longitude = Double(selectedLocation!.x) else { return }
-        print(latitude)
-        print(longitude)
-        locationMapView.setMapCenter(MTMapPoint(geoCoord: MTMapPointGeo(latitude: latitude, longitude: longitude)), animated: true)
-        print(locationMapView.mapCenterPoint)
+        let latitude = Double(location.y)
+        let longitude = Double(location.x)
+        let location = CLLocationCoordinate2DMake(latitude!, longitude!)
+        let viewRegion = MKCoordinateRegion(center: location, latitudinalMeters: 200, longitudinalMeters: 200)
+        self.locationMapView.setRegion(viewRegion, animated: false)
+        
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = location
+        self.locationMapView.addAnnotation(annotation)
     }
 }

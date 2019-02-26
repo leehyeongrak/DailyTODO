@@ -33,6 +33,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // ViewDidLoad() //////////////////////////////////////////////////
     override func viewDidLoad() {
         super.viewDidLoad()
+        let attrs = [
+            NSAttributedString.Key.foregroundColor: UIColor.darkGray,
+            NSAttributedString.Key.font: UIFont(name: "Apple Color Emoji", size: 20)!
+        ]
+        navigationController?.navigationBar.titleTextAttributes = attrs
+        
         
         center.requestAuthorization(options: options) { (didAllow, error) in
         }
@@ -52,7 +58,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewWillAppear(_ animated: Bool) {
         fetchAndReloadData()
-        
     }
     
     func fetchAndReloadData() {
@@ -136,9 +141,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 cell.memoLabel.text = memoText
                 
                 let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "a hh:mm"
-                dateFormatter.amSymbol = "오전"
-                dateFormatter.pmSymbol = "오후"
+                dateFormatter.dateFormat = "hh:mm a"
+                dateFormatter.amSymbol = "AM"
+                dateFormatter.pmSymbol = "PM"
                 
                 // 시간설정 여부에 따른 옵셔널값 처리
                 if task.alarmTime == nil {
