@@ -35,7 +35,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         
         center.requestAuthorization(options: options) { (didAllow, error) in
-            print(didAllow)
         }
         
         navigationController?.navigationBar.barTintColor = .white

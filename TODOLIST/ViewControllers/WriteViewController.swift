@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class WriteViewController: UIViewController, UITextFieldDelegate {
+class WriteViewController: UIViewController, UITextFieldDelegate, MTMapViewDelegate {
     
     var delegate: AddTaskDelegate?
     
@@ -56,6 +56,9 @@ class WriteViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var locationLabel: UILabel!
     
+    @IBOutlet var locationMapView: MTMapView!
+    
+    var selectedLocation: Location?
     // ----------------------------------------------------------
     
     @IBAction func tappedWriteButton(_ sender: UIButton) {
@@ -105,6 +108,9 @@ class WriteViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         isToday = true
         
+        locationMapView.delegate = self
+        setupMapView()
+        
         todoTextField.delegate = self
         memoTextField.delegate = self
     }
@@ -118,4 +124,45 @@ class WriteViewController: UIViewController, UITextFieldDelegate {
         self.view.endEditing(true)
     }
 
+    func setupMapView() {
+        locationMapView.baseMapType = .standard
+        DispatchQueue.global().async {
+            self.locationMapView.currentLocationTrackingMode = MTMapCurrentLocationTrackingMode.onWithoutHeading
+        }
+        print("SetupMapView")
+    }
+    
+    func mapView(_ mapView: MTMapView!, updateCurrentLocation location: MTMapPoint!, withAccuracy accuracy: MTMapLocationAccuracy) {
+        if let address = MTMapReverseGeoCoder.findAddress(for: location, withOpenAPIKey: "d9a4fa482d1ff0ad685736ffd7c9bb2a") {
+            self.locationLabel.text = address
+            locationMapView.currentLocationTrackingMode = MTMapCurrentLocationTrackingMode.off
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? MapViewController {
+            vc.currentCoordinate = locationMapView.mapCenterPoint.mapPointGeo()
+            vc.currentAddress = locationLabel.text
+            vc.delegate = self
+        }
+    }
+}
+
+protocol SetLocationDelegate {
+    func setLocation(location: Location)
+}
+
+extension WriteViewController: SetLocationDelegate {
+    func setLocation(location: Location) {
+        selectedLocation = location
+        
+        locationLabel.text = selectedLocation?.roadAddressName
+        
+        
+        guard let latitude = Double(selectedLocation!.y), let longitude = Double(selectedLocation!.x) else { return }
+        print(latitude)
+        print(longitude)
+        locationMapView.setMapCenter(MTMapPoint(geoCoord: MTMapPointGeo(latitude: latitude, longitude: longitude)), animated: true)
+        print(locationMapView.mapCenterPoint)
+    }
 }
