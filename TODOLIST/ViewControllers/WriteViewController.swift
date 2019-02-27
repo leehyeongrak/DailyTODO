@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import MapKit
 
-class WriteViewController: UIViewController, UITextFieldDelegate {
+class WriteViewController: UIViewController {
     
     var delegate: AddTaskDelegate?
     
@@ -83,23 +83,31 @@ class WriteViewController: UIViewController, UITextFieldDelegate {
                 task.alarmOnOff = true
                 task.alarmTime = timePicker.date
             }
-            
             if locationSettingButton.state == .selected {
                 task.alarmOnOff = true
                 task.alarmLocation = selectedLocation?.nsDictionary
             }
-            
             if timeSettingButton.state == .normal && locationSettingButton.state == .normal {
                 task.alarmOnOff = false
             }
-            
             task.checkDone = false
         } else {
-            let alert = UIAlertController(title: nil, message: "미구현단계", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-            present(alert, animated: true, completion: nil)
+            let task = TomorrowTask(context: context)
+            task.todoText = todoTextField.text
+            task.memoText = memoTextField.text
+            task.creationTime = Date()
             
-            return
+            if timeSettingButton.state == .selected {
+                task.alarmOnOff = true
+                task.alarmTime = timePicker.date
+            }
+            if locationSettingButton.state == .selected {
+                task.alarmOnOff = true
+                task.alarmLocation = selectedLocation?.nsDictionary
+            }
+            if timeSettingButton.state == .normal && locationSettingButton.state == .normal {
+                task.alarmOnOff = false
+            }
         }
         
         // Save the data to coredata
@@ -123,11 +131,6 @@ class WriteViewController: UIViewController, UITextFieldDelegate {
         locationMapView.isUserInteractionEnabled = false
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.view.endEditing(true)
-        return true
-    }
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
@@ -149,6 +152,13 @@ class WriteViewController: UIViewController, UITextFieldDelegate {
 
 protocol SetLocationDelegate {
     func setLocation(location: Location)
+}
+
+extension WriteViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
+    }
 }
 
 extension WriteViewController: SetLocationDelegate {

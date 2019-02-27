@@ -9,10 +9,70 @@
 import UIKit
 
 class TomorrowTableViewCell: UITableViewCell {
-
+    
+    var task: TomorrowTask? {
+        didSet {
+            matchData()
+        }
+    }
+    
+    @IBOutlet weak var todoLabel: UILabel!
+    @IBOutlet weak var memoLabel: UILabel!
+    @IBOutlet weak var alarmOnOffButton: UIButton!
+    @IBOutlet weak var alarmTimeLabel: UILabel!
+    @IBOutlet weak var alarmLocationLabel: UILabel!
+    
+    @IBAction func tappedAlarmOnOffButton(_ sender: UIButton) {
+    }
+    
+    func matchData() {
+        guard let task = self.task else { return }
+        
+        if let todoText = task.todoText, let memoText = task.memoText {
+            todoLabel.text = todoText
+            if memoText == "" {
+                memoLabel.text = "--"
+            } else {
+                memoLabel.text = memoText
+            }
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "hh:mm a"
+            dateFormatter.amSymbol = "AM"
+            dateFormatter.pmSymbol = "PM"
+            
+            // 시간설정 여부에 따른 옵셔널값 처리
+            if task.alarmTime == nil {
+                alarmTimeLabel.text = "--"
+            } else {
+                alarmTimeLabel.text = dateFormatter.string(from: task.alarmTime!)
+                if task.alarmOnOff {
+                    alarmOnOffButton.setTitle("🔔", for: .normal)
+                } else {
+                    alarmOnOffButton.setTitle("🔕", for: .normal)
+                }
+            }
+            
+            // 장소설정 여부에 따른 옵셔널값 처리
+            
+            if task.alarmLocation == nil {
+                alarmLocationLabel.text = "--"
+            } else {
+                let place = task.alarmLocation!["placeName"] as! String
+                let roadAddress = task.alarmLocation!["roadAddressName"] as! String
+                alarmLocationLabel.text = "\(place)(\(roadAddress))"
+                if task.alarmOnOff {
+                    alarmOnOffButton.setTitle("🔔", for: .normal)
+                } else {
+                    alarmOnOffButton.setTitle("🔕", for: .normal)
+                }
+            }
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        self.selectionStyle = .none
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

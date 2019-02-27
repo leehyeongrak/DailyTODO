@@ -10,10 +10,17 @@
         <attribute name="memoText" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="todoText" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="TomorrowTask" representedClassName="TomorrowTask" syncable="YES" codeGenerationType="class"/>
+    <entity name="TomorrowTask" representedClassName="TomorrowTask" syncable="YES" codeGenerationType="class">
+        <attribute name="alarmLocation" optional="YES" attributeType="Transformable" customClassName="NSDictionary" syncable="YES"/>
+        <attribute name="alarmOnOff" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="alarmTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="creationTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="memoText" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="todoText" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
         <element name="PastTask" positionX="-18" positionY="27" width="128" height="45"/>
         <element name="TodayTask" positionX="-54" positionY="0" width="128" height="150"/>
-        <element name="TomorrowTask" positionX="-36" positionY="9" width="128" height="45"/>
+        <element name="TomorrowTask" positionX="-36" positionY="9" width="128" height="135"/>
     </elements>
 </model>

@@ -11,7 +11,7 @@ import CoreData
 import UserNotifications
 import CoreLocation
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController {
     
     // CoreDate 프로퍼티
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -42,24 +42,23 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             NSAttributedString.Key.font: UIFont(name: "Apple Color Emoji", size: 20)!
         ]
         navigationController?.navigationBar.titleTextAttributes = attrs
+        navigationController?.navigationBar.barTintColor = .white
+        navigationController?.navigationBar.shadowImage = UIImage()
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy. MM. dd. EEEE"
+        currentTimeLabel.text = dateFormatter.string(from: Date())
         
         center.delegate = self
         center.requestAuthorization(options: options) { (didAllow, error) in
         }
         
-        navigationController?.navigationBar.barTintColor = .white
-        navigationController?.navigationBar.shadowImage = UIImage()
+        setupLocationManager()
         
         todayTableView.delegate = self
         todayTableView.dataSource = self
         tomorrowTableView.delegate = self
         tomorrowTableView.dataSource = self
-        
-        setupLocationManager()
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy. MM. dd. EEEE"
-        currentTimeLabel.text = dateFormatter.string(from: Date())
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,10 +68,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func setupLocationManager() {
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
-        locationManager.startUpdatingLocation()
-        locationManager.distanceFilter = kCLDistanceFilterNone
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-//        locationManager.startMonitoringSignificantLocationChanges()
+//        locationManager.startUpdatingLocation()
+//        locationManager.distanceFilter = kCLDistanceFilterNone
+//        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startMonitoringSignificantLocationChanges()
         alwaysAuthorization()
     }
     
@@ -81,11 +80,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             locationManager.requestAlwaysAuthorization()
         }
     }
-
     
     func fetchAndReloadData() {
         do {
             todayTasks = try context.fetch(TodayTask.fetchRequest())
+            tomorrowTasks = try context.fetch(TomorrowTask.fetchRequest())
         } catch  {
             print("Fetching Failed")
         }
@@ -94,6 +93,25 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.tomorrowTableView.reloadData()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? WriteViewController {
+            vc.delegate = self
+        }
+    }
+}
+
+// Protocols & Extensions //////////////////////////////////////////////////
+protocol AddTaskDelegate {
+    func addTask()
+}
+
+extension ViewController: AddTaskDelegate {
+    func addTask() {
+        fetchAndReloadData()
+    }
+}
+
+extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath == selectedRowIndex {
             selectedRowIndex = nil
@@ -130,7 +148,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 context.delete(task)
                 (UIApplication.shared.delegate as! AppDelegate).saveContext()
             } else if tableView == tomorrowTableView {
-                print("미구현단계입니다")
+                let task = tomorrowTasks[indexPath.row]
+                context.delete(task)
+                (UIApplication.shared.delegate as! AppDelegate).saveContext()
             }
             fetchAndReloadData()
         }
@@ -150,7 +170,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         case todayTableView:
             return todayTasks.count
         default:
-            return 0
+            return tomorrowTasks.count
         }
     }
     
@@ -161,146 +181,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 return UITableViewCell()
             }
             let task = todayTasks[indexPath.row]
-            
             cell.task = task
-            
-            if let todoText = task.todoText, let memoText = task.memoText {
-                
-                cell.todoLabel.text = todoText
-                if memoText == "" {
-                    cell.memoLabel.text = "--"
-                } else {
-                    cell.memoLabel.text = memoText
-                }
-                
-                
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "hh:mm a"
-                dateFormatter.amSymbol = "AM"
-                dateFormatter.pmSymbol = "PM"
-                
-                // 시간설정 여부에 따른 옵셔널값 처리
-                if task.alarmTime == nil {
-                    cell.alarmTimeLabel.text = "--"
-                } else {
-                    cell.alarmTimeLabel.text = dateFormatter.string(from: task.alarmTime!)
-                    if task.alarmOnOff {
-                        NotificationProcessor.addTimeNotification(task: task)
-                        cell.alarmOnOffButton.setTitle("🔔", for: .normal)
-                    } else {
-                        cell.alarmOnOffButton.setTitle("🔕", for: .normal)
-                    }
-                }
-
-                // 장소설정 여부에 따른 옵셔널값 처리
-                if task.alarmLocation == nil {
-                    cell.alarmLocationLabel.text = "--"
-                } else {
-                    let place = task.alarmLocation!["placeName"] as! String
-                    let roadAddress = task.alarmLocation!["roadAddressName"] as! String
-                    cell.alarmLocationLabel.text = "\(place)(\(roadAddress))"
-                    if task.alarmOnOff {
-                        NotificationProcessor.addLocationNotification(task: task)
-                        cell.alarmOnOffButton.setTitle("🔔", for: .normal)
-                    } else {
-                        cell.alarmOnOffButton.setTitle("🔕", for: .normal)
-                    }
-                }
-                
-                if task.checkDone {
-                    cell.checkDoneButton.setTitle("■", for: .normal)
-                } else {
-                    cell.checkDoneButton.setTitle("□", for: .normal)
-                }
-            }
             
             return cell
         default:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "TomorrowCell", for: indexPath) as? TomorrowTableViewCell else {
                 return UITableViewCell()
             }
+            let task = tomorrowTasks[indexPath.row]
+            cell.task = task
+            
             return cell
         }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? WriteViewController {
-            vc.delegate = self
-        }
-    }
-}
-
-// Custom Cells //////////////////////////////////////////////////
-class TodayTableViewCell: UITableViewCell {
-    
-    var task: TodayTask?
-    
-    @IBOutlet weak var todoLabel: UILabel!
-    @IBOutlet weak var memoLabel: UILabel!
-    @IBOutlet weak var checkDoneButton: UIButton!
-    @IBOutlet weak var alarmOnOffButton: UIButton!
-    @IBOutlet weak var alarmTimeLabel: UILabel!
-    @IBOutlet weak var alarmLocationLabel: UILabel!
-    
-    @IBAction func tappedCheckDoneButton(_ sender: UIButton) {
-        if task!.checkDone {
-            checkDoneButton.setTitle("□", for: .normal)
-        } else {
-            checkDoneButton.setTitle("■", for: .normal)
-        }
-        
-        task?.checkDone = !((task?.checkDone)!)
-        (UIApplication.shared.delegate as! AppDelegate).saveContext()
-    }
-    @IBAction func tappedAlarmOnOffButton(_ sender: UIButton) {
-        
-        if task?.alarmTime == nil && task?.alarmLocation == nil {
-            return
-        }
-        
-        if task!.alarmOnOff {
-            if task?.alarmTime != nil {
-                NotificationProcessor.removeTimeNotification(task: task!)
-            }
-            if task?.alarmLocation != nil {
-                NotificationProcessor.removeTimeNotification(task: task!)
-            }
-            alarmOnOffButton.setTitle("🔕", for: .normal)
-        } else {
-            if task?.alarmTime != nil {
-                NotificationProcessor.addTimeNotification(task: task!)
-            }
-            if task?.alarmLocation != nil {
-                NotificationProcessor.addLocationNotification(task: task!)
-            }
-            alarmOnOffButton.setTitle("🔔", for: .normal)
-        }
-        
-        task?.alarmOnOff = !((task?.alarmOnOff)!)
-        (UIApplication.shared.delegate as! AppDelegate).saveContext()
-    }
-    override func awakeFromNib() {
-        self.selectionStyle = .none
-        
-        alarmOnOffButton.layer.cornerRadius = 15
-        alarmOnOffButton.layer.masksToBounds = true
-    }
-}
-
-class TomorrowTableViewCell: UITableViewCell {
-    override func awakeFromNib() {
-        self.selectionStyle = .none
-    }
-}
-
-// Protocols & Extensions //////////////////////////////////////////////////
-protocol AddTaskDelegate {
-    func addTask()
-}
-
-extension ViewController: AddTaskDelegate {
-    func addTask() {
-        fetchAndReloadData()
     }
 }
 

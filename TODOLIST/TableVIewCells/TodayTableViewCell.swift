@@ -10,7 +10,11 @@ import UIKit
 
 class TodayTableViewCell: UITableViewCell {
 
-    var task: TodayTask?
+    var task: TodayTask? {
+        didSet {
+            matchData()
+        }
+    }
     
     @IBOutlet weak var todoLabel: UILabel!
     @IBOutlet weak var memoLabel: UILabel!
@@ -55,6 +59,60 @@ class TodayTableViewCell: UITableViewCell {
         
         task?.alarmOnOff = !((task?.alarmOnOff)!)
         (UIApplication.shared.delegate as! AppDelegate).saveContext()
+    }
+    
+    func matchData() {
+        guard let task = self.task else { return }
+        
+        if let todoText = task.todoText, let memoText = task.memoText {
+            
+            todoLabel.text = todoText
+            if memoText == "" {
+                memoLabel.text = "--"
+            } else {
+                memoLabel.text = memoText
+            }
+            
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "hh:mm a"
+            dateFormatter.amSymbol = "AM"
+            dateFormatter.pmSymbol = "PM"
+            
+            // 시간설정 여부에 따른 옵셔널값 처리
+            if task.alarmTime == nil {
+                alarmTimeLabel.text = "--"
+            } else {
+                alarmTimeLabel.text = dateFormatter.string(from: task.alarmTime!)
+                if task.alarmOnOff {
+                    NotificationProcessor.addTimeNotification(task: task)
+                    alarmOnOffButton.setTitle("🔔", for: .normal)
+                } else {
+                    alarmOnOffButton.setTitle("🔕", for: .normal)
+                }
+            }
+            
+            // 장소설정 여부에 따른 옵셔널값 처리
+            if task.alarmLocation == nil {
+                alarmLocationLabel.text = "--"
+            } else {
+                let place = task.alarmLocation!["placeName"] as! String
+                let roadAddress = task.alarmLocation!["roadAddressName"] as! String
+                alarmLocationLabel.text = "\(place)(\(roadAddress))"
+                if task.alarmOnOff {
+                    NotificationProcessor.addLocationNotification(task: task)
+                    alarmOnOffButton.setTitle("🔔", for: .normal)
+                } else {
+                    alarmOnOffButton.setTitle("🔕", for: .normal)
+                }
+            }
+            
+            if task.checkDone {
+                checkDoneButton.setTitle("■", for: .normal)
+            } else {
+                checkDoneButton.setTitle("□", for: .normal)
+            }
+        }
     }
     
     override func awakeFromNib() {
