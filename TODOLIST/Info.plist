@@ -43,6 +43,8 @@
 	<string>현재 사용자의 위치정보를 사용합니다.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>현재 사용자의 위치정보를 사용합니다.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>사용자의 위치정보를 사용합니다.</string>
 	<key>KAKAO_APP_KEY</key>
 	<string>d9a4fa482d1ff0ad685736ffd7c9bb2a</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>

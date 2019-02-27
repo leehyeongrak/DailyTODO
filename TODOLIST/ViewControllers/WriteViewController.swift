@@ -78,13 +78,21 @@ class WriteViewController: UIViewController, UITextFieldDelegate {
             task.todoText = todoTextField.text
             task.memoText = memoTextField.text
             task.creationTime = Date()
+            
             if timeSettingButton.state == .selected {
                 task.alarmOnOff = true
                 task.alarmTime = timePicker.date
-            } else {
-                task.alarmOnOff = false
-                task.alarmTime = nil
             }
+            
+            if locationSettingButton.state == .selected {
+                task.alarmOnOff = true
+                task.alarmLocation = selectedLocation?.nsDictionary
+            }
+            
+            if timeSettingButton.state == .normal && locationSettingButton.state == .normal {
+                task.alarmOnOff = false
+            }
+            
             task.checkDone = false
         } else {
             let alert = UIAlertController(title: nil, message: "미구현단계", preferredStyle: .alert)

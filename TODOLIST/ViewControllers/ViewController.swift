@@ -9,8 +9,9 @@
 import UIKit
 import CoreData
 import UserNotifications
+import CoreLocation
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UNUserNotificationCenterDelegate {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     // CoreDate 프로퍼티
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -20,6 +21,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // UserNotifications 프로퍼티
     let center = UNUserNotificationCenter.current()
     let options: UNAuthorizationOptions = [.alert, .sound]
+    
+    // CoreLocation 프로퍼티
+    let locationManager = CLLocationManager()
     
     // Storyboard 아울렛
     @IBOutlet weak var todayTableView: UITableView!
@@ -39,7 +43,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         ]
         navigationController?.navigationBar.titleTextAttributes = attrs
         
-        
+        center.delegate = self
         center.requestAuthorization(options: options) { (didAllow, error) in
         }
         
@@ -51,6 +55,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tomorrowTableView.delegate = self
         tomorrowTableView.dataSource = self
         
+        setupLocationManager()
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy. MM. dd. EEEE"
         currentTimeLabel.text = dateFormatter.string(from: Date())
@@ -59,6 +65,23 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewWillAppear(_ animated: Bool) {
         fetchAndReloadData()
     }
+    
+    func setupLocationManager() {
+        locationManager.delegate = self
+        locationManager.requestAlwaysAuthorization()
+        locationManager.startUpdatingLocation()
+        locationManager.distanceFilter = kCLDistanceFilterNone
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//        locationManager.startMonitoringSignificantLocationChanges()
+        alwaysAuthorization()
+    }
+    
+    func alwaysAuthorization(){
+        if CLLocationManager.locationServicesEnabled() && CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+            locationManager.requestAlwaysAuthorization()
+        }
+    }
+
     
     func fetchAndReloadData() {
         do {
@@ -98,6 +121,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if editingStyle == .delete {
             if tableView == todayTableView {
                 let task = todayTasks[indexPath.row]
+                if task.alarmTime != nil {
+                    NotificationProcessor.removeTimeNotification(task: task)
+                }
+                if task.alarmLocation != nil {
+                    NotificationProcessor.removeTimeNotification(task: task)
+                }
                 context.delete(task)
                 (UIApplication.shared.delegate as! AppDelegate).saveContext()
             } else if tableView == tomorrowTableView {
@@ -138,7 +167,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             if let todoText = task.todoText, let memoText = task.memoText {
                 
                 cell.todoLabel.text = todoText
-                cell.memoLabel.text = memoText
+                if memoText == "" {
+                    cell.memoLabel.text = "--"
+                } else {
+                    cell.memoLabel.text = memoText
+                }
+                
                 
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "hh:mm a"
@@ -147,18 +181,29 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
                 // 시간설정 여부에 따른 옵셔널값 처리
                 if task.alarmTime == nil {
-                    cell.alarmTimeLabel.text = ""
+                    cell.alarmTimeLabel.text = "--"
                 } else {
                     cell.alarmTimeLabel.text = dateFormatter.string(from: task.alarmTime!)
-                    if task.alarmTime! <= Date() {
-                        cell.alarmOnOffButton.setTitle("🔕", for: .normal)
+                    if task.alarmOnOff {
+                        NotificationProcessor.addTimeNotification(task: task)
+                        cell.alarmOnOffButton.setTitle("🔔", for: .normal)
                     } else {
-                        if task.alarmOnOff {
-                            NotificationProcessor.addTimeNotification(task: task)
-                            cell.alarmOnOffButton.setTitle("🔔", for: .normal)
-                        } else {
-                            cell.alarmOnOffButton.setTitle("🔕", for: .normal)
-                        }
+                        cell.alarmOnOffButton.setTitle("🔕", for: .normal)
+                    }
+                }
+
+                // 장소설정 여부에 따른 옵셔널값 처리
+                if task.alarmLocation == nil {
+                    cell.alarmLocationLabel.text = "--"
+                } else {
+                    let place = task.alarmLocation!["placeName"] as! String
+                    let roadAddress = task.alarmLocation!["roadAddressName"] as! String
+                    cell.alarmLocationLabel.text = "\(place)(\(roadAddress))"
+                    if task.alarmOnOff {
+                        NotificationProcessor.addLocationNotification(task: task)
+                        cell.alarmOnOffButton.setTitle("🔔", for: .normal)
+                    } else {
+                        cell.alarmOnOffButton.setTitle("🔕", for: .normal)
                     }
                 }
                 
@@ -167,8 +212,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 } else {
                     cell.checkDoneButton.setTitle("□", for: .normal)
                 }
-                
-                cell.alarmLocationLabel.text = ""
             }
             
             return cell
@@ -211,19 +254,25 @@ class TodayTableViewCell: UITableViewCell {
     }
     @IBAction func tappedAlarmOnOffButton(_ sender: UIButton) {
         
-        if task?.alarmTime == nil {
+        if task?.alarmTime == nil && task?.alarmLocation == nil {
             return
-        } else {
-            if (task?.alarmTime)! <= Date() {
-                return
-            }
         }
         
         if task!.alarmOnOff {
-            NotificationProcessor.removeTimeNotification(task: task!)
+            if task?.alarmTime != nil {
+                NotificationProcessor.removeTimeNotification(task: task!)
+            }
+            if task?.alarmLocation != nil {
+                NotificationProcessor.removeTimeNotification(task: task!)
+            }
             alarmOnOffButton.setTitle("🔕", for: .normal)
         } else {
-            NotificationProcessor.addTimeNotification(task: task!)
+            if task?.alarmTime != nil {
+                NotificationProcessor.addTimeNotification(task: task!)
+            }
+            if task?.alarmLocation != nil {
+                NotificationProcessor.addLocationNotification(task: task!)
+            }
             alarmOnOffButton.setTitle("🔔", for: .normal)
         }
         
@@ -255,3 +304,12 @@ extension ViewController: AddTaskDelegate {
     }
 }
 
+extension ViewController: UNUserNotificationCenterDelegate {
+    // Foreground notification
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .sound])
+    }
+}
+
+extension ViewController: CLLocationManagerDelegate {
+}
