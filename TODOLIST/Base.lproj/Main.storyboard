@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--History View Controller-->
+        <!--기록-->
         <scene sceneID="0Gm-9y-gid">
             <objects>
                 <viewController id="jBa-Ow-4o3" customClass="HistoryViewController" customModule="TODOLIST" customModuleProvider="target" sceneMemberID="viewController">
@@ -20,13 +20,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="W2V-cE-oQT"/>
                     </view>
-                    <tabBarItem key="tabBarItem" systemItem="history" id="VoK-6s-z0p"/>
+                    <tabBarItem key="tabBarItem" title="기록" image="HistoryIcon" id="VoK-6s-z0p"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SwS-VC-0qG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1071" y="903"/>
         </scene>
-        <!--More View Controller-->
+        <!--더보기-->
         <scene sceneID="8d0-5G-Cur">
             <objects>
                 <viewController id="cLG-0n-fdK" customClass="MoreViewController" customModule="TODOLIST" customModuleProvider="target" sceneMemberID="viewController">
@@ -36,7 +36,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="Esj-NL-cd6"/>
                     </view>
-                    <tabBarItem key="tabBarItem" systemItem="more" id="aLO-ye-e5Y"/>
+                    <tabBarItem key="tabBarItem" title="더보기" image="MoreIcon" id="aLO-ye-e5Y"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bIS-3y-ZIw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -58,9 +58,9 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Today " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JBP-wP-UOR">
                                         <rect key="frame" x="16" y="16" width="95.333333333333329" height="27"/>
-                                        <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="1" green="0.57810515169999999" blue="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="AppleColorEmoji" family="Apple Color Emoji" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="textColor" red="1" green="0.57810515169999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="abB-xc-RSw">
@@ -295,9 +295,9 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Tomorrow " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OuY-HR-NI3">
                                         <rect key="frame" x="16.000000000000007" y="16" width="125.66666666666669" height="27"/>
-                                        <color key="backgroundColor" red="0.0" green="0.50196078430000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.0" green="0.50196078430000002" blue="1" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="AppleColorEmoji" family="Apple Color Emoji" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="textColor" red="0.0" green="0.50196078430000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HZ7-Xb-cYH">
@@ -432,9 +432,6 @@
                                                                         <constraint firstAttribute="height" constant="30" id="Suu-Mr-J8H"/>
                                                                     </constraints>
                                                                     <state key="normal" title="🔕"/>
-                                                                    <connections>
-                                                                        <action selector="tappedAlarmOnOffButton:" destination="ea9-Nk-Cwv" eventType="touchUpInside" id="bEm-Ko-pyy"/>
-                                                                    </connections>
                                                                 </button>
                                                             </subviews>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1054,6 +1051,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
+                                <color key="value" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="unselectedItemTintColor">
+                                <color key="value" red="0.87058823529411766" green="0.87058823529411766" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </tabBar>
                     <connections>
                         <segue destination="3Uy-Id-mQA" kind="relationship" relationship="viewControllers" id="OHz-RX-YQx"/>
@@ -1065,11 +1070,11 @@
             </objects>
             <point key="canvasLocation" x="132" y="132.68365817091455"/>
         </scene>
-        <!--Todo-->
+        <!--할일-->
         <scene sceneID="31z-fg-fZG">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3Uy-Id-mQA" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Todo" id="7hr-Mq-Irn"/>
+                    <tabBarItem key="tabBarItem" title="할일" image="TodoIcon" id="7hr-Mq-Irn"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="kJA-I7-faG">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -1086,6 +1091,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="HistoryIcon" width="24" height="25"/>
+        <image name="MoreIcon" width="25" height="8"/>
+        <image name="TodoIcon" width="23" height="25"/>
         <image name="background" width="1180" height="140"/>
     </resources>
 </document>
