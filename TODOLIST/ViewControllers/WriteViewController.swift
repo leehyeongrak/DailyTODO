@@ -73,42 +73,70 @@ class WriteViewController: UIViewController {
         
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
+        
+        ///////////////////////////////////// 수정 ㅎ ////////////////
+        let task = Task(context: context)
+        task.todoText = todoTextField.text
+        task.memoText = memoTextField.text
+        
         if isToday {
-            let task = TodayTask(context: context)
-            task.todoText = todoTextField.text
-            task.memoText = memoTextField.text
-            task.creationTime = Date()
-            
-            if timeSettingButton.state == .selected {
-                task.alarmOnOff = true
-                task.alarmTime = timePicker.date
-            }
-            if locationSettingButton.state == .selected {
-                task.alarmOnOff = true
-                task.alarmLocation = selectedLocation?.nsDictionary
-            }
-            if timeSettingButton.state == .normal && locationSettingButton.state == .normal {
-                task.alarmOnOff = false
-            }
-            task.checkDone = false
+            task.classifiedTime = Date()
         } else {
-            let task = TomorrowTask(context: context)
-            task.todoText = todoTextField.text
-            task.memoText = memoTextField.text
-            task.creationTime = Date()
-            
-            if timeSettingButton.state == .selected {
-                task.alarmOnOff = true
-                task.alarmTime = timePicker.date
-            }
-            if locationSettingButton.state == .selected {
-                task.alarmOnOff = true
-                task.alarmLocation = selectedLocation?.nsDictionary
-            }
-            if timeSettingButton.state == .normal && locationSettingButton.state == .normal {
-                task.alarmOnOff = false
-            }
+            var date = Date()
+            date.addTimeInterval(86400)
+            task.classifiedTime = date
         }
+        
+        if timeSettingButton.state == .selected {
+            task.alarmOnOff = true
+            task.alarmTime = timePicker.date
+        }
+        if locationSettingButton.state == .selected {
+            task.alarmOnOff = true
+            task.alarmLocation = selectedLocation?.nsDictionary
+        }
+        if timeSettingButton.state == .normal && locationSettingButton.state == .normal {
+            task.alarmOnOff = false
+        }
+        task.checkDone = false
+        
+        ///////////////////////////////////// 수정 전 ////////////////
+//        if isToday {
+//            let task = TodayTask(context: context)
+//            task.todoText = todoTextField.text
+//            task.memoText = memoTextField.text
+//            task.creationTime = Date()
+//            
+//            if timeSettingButton.state == .selected {
+//                task.alarmOnOff = true
+//                task.alarmTime = timePicker.date
+//            }
+//            if locationSettingButton.state == .selected {
+//                task.alarmOnOff = true
+//                task.alarmLocation = selectedLocation?.nsDictionary
+//            }
+//            if timeSettingButton.state == .normal && locationSettingButton.state == .normal {
+//                task.alarmOnOff = false
+//            }
+//            task.checkDone = false
+//        } else {
+//            let task = TomorrowTask(context: context)
+//            task.todoText = todoTextField.text
+//            task.memoText = memoTextField.text
+//            task.creationTime = Date()
+//            
+//            if timeSettingButton.state == .selected {
+//                task.alarmOnOff = true
+//                task.alarmTime = timePicker.date
+//            }
+//            if locationSettingButton.state == .selected {
+//                task.alarmOnOff = true
+//                task.alarmLocation = selectedLocation?.nsDictionary
+//            }
+//            if timeSettingButton.state == .normal && locationSettingButton.state == .normal {
+//                task.alarmOnOff = false
+//            }
+//        }
         
         // Save the data to coredata
         (UIApplication.shared.delegate as! AppDelegate).saveContext()

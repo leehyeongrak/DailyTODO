@@ -10,7 +10,7 @@ import UIKit
 
 class TomorrowTableViewCell: UITableViewCell {
     
-    var task: TomorrowTask? {
+    var task: Task? {
         didSet {
             matchData()
         }
@@ -31,7 +31,7 @@ class TomorrowTableViewCell: UITableViewCell {
         if let todoText = task.todoText, let memoText = task.memoText {
             todoLabel.text = todoText
             if memoText == "" {
-                memoLabel.text = "--"
+                memoLabel.text = "-"
             } else {
                 memoLabel.text = memoText
             }
@@ -43,28 +43,23 @@ class TomorrowTableViewCell: UITableViewCell {
             
             // 시간설정 여부에 따른 옵셔널값 처리
             if task.alarmTime == nil {
-                alarmTimeLabel.text = "--"
+                alarmTimeLabel.text = "-"
             } else {
                 alarmTimeLabel.text = dateFormatter.string(from: task.alarmTime!)
-                if task.alarmOnOff {
-                    alarmOnOffButton.setTitle("🔔", for: .normal)
-                } else {
-                    alarmOnOffButton.setTitle("🔕", for: .normal)
-                }
             }
             
             // 장소설정 여부에 따른 옵셔널값 처리
             
             if task.alarmLocation == nil {
-                alarmLocationLabel.text = "--"
+                alarmLocationLabel.text = "-"
             } else {
                 let place = task.alarmLocation!["placeName"] as! String
                 let roadAddress = task.alarmLocation!["roadAddressName"] as! String
                 alarmLocationLabel.text = "\(place)(\(roadAddress))"
                 if task.alarmOnOff {
-                    alarmOnOffButton.setTitle("🔔", for: .normal)
+                    alarmOnOffButton.isSelected = true
                 } else {
-                    alarmOnOffButton.setTitle("🔕", for: .normal)
+                    alarmOnOffButton.isSelected = false
                 }
             }
         }
