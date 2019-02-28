@@ -496,6 +496,9 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <inset key="contentEdgeInsets" minX="0.0" minY="1" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="취침시간 설정➲"/>
+                                        <connections>
+                                            <segue destination="rhF-PR-mzc" kind="presentation" id="GbT-NL-j1u"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -938,7 +941,7 @@
                                                             <constraint firstItem="5uY-JZ-WLe" firstAttribute="leading" secondItem="fES-yv-Zbr" secondAttribute="leading" id="zgM-wG-JQF"/>
                                                         </constraints>
                                                     </view>
-                                                    <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pTC-fL-wlT">
+                                                    <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pTC-fL-wlT">
                                                         <rect key="frame" x="16" y="16" width="343" height="320.33333333333331"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -1091,6 +1094,176 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OeW-Hm-wb7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1071.2" y="132.26600985221674"/>
+        </scene>
+        <!--Bedtime Set View Controller-->
+        <scene sceneID="1q3-Bp-QqJ">
+            <objects>
+                <viewController modalPresentationStyle="overFullScreen" id="rhF-PR-mzc" customClass="BedtimeSetViewController" customModule="TODOLIST" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="c7V-Hg-jya">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ncu-dr-YlP">
+                                <rect key="frame" x="0.0" y="337.66666666666674" width="375" height="440.33333333333326"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="tRP-62-CU5">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="440.33333333333331"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uj3-6y-Yn9">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qAp-5C-dV1">
+                                                        <rect key="frame" x="337" y="7" width="30" height="30"/>
+                                                        <state key="normal" title="❌"/>
+                                                        <connections>
+                                                            <action selector="tappedClosedButton:" destination="rhF-PR-mzc" eventType="touchUpInside" id="cL4-Nr-s3G"/>
+                                                        </connections>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bedtime:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cdt-sY-kXU">
+                                                        <rect key="frame" x="16" y="8.3333333333333144" width="81.666666666666671" height="27"/>
+                                                        <fontDescription key="fontDescription" name="AppleColorEmoji" family="Apple Color Emoji" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hCm-42-tea">
+                                                        <rect key="frame" x="226.66666666666666" y="7.3333333333333144" width="36.999999999999972" height="29"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <state key="normal" title="설정□"/>
+                                                        <state key="selected" title="설정■"/>
+                                                        <connections>
+                                                            <action selector="tappedTimeSettingButton:" destination="rhF-PR-mzc" eventType="touchUpInside" id="DfM-e9-TaJ"/>
+                                                        </connections>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BedtimeLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Jz-oV-fHr">
+                                                        <rect key="frame" x="105.66666666666669" y="11.666666666666627" width="105" height="20.333333333333329"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="6Jz-oV-fHr" firstAttribute="centerY" secondItem="cdt-sY-kXU" secondAttribute="centerY" id="H8i-hS-zTh"/>
+                                                    <constraint firstItem="6Jz-oV-fHr" firstAttribute="leading" secondItem="cdt-sY-kXU" secondAttribute="trailing" constant="8" id="OeX-Nt-eRP"/>
+                                                    <constraint firstAttribute="trailing" secondItem="qAp-5C-dV1" secondAttribute="trailing" constant="8" id="OrB-tw-kqa"/>
+                                                    <constraint firstItem="qAp-5C-dV1" firstAttribute="centerY" secondItem="Uj3-6y-Yn9" secondAttribute="centerY" id="QrV-H1-z2K"/>
+                                                    <constraint firstItem="cdt-sY-kXU" firstAttribute="leading" secondItem="Uj3-6y-Yn9" secondAttribute="leading" constant="16" id="VOH-8o-aUC"/>
+                                                    <constraint firstItem="cdt-sY-kXU" firstAttribute="centerY" secondItem="Uj3-6y-Yn9" secondAttribute="centerY" id="YVd-6f-bFp"/>
+                                                    <constraint firstItem="hCm-42-tea" firstAttribute="centerY" secondItem="cdt-sY-kXU" secondAttribute="centerY" id="nDX-ig-HF3"/>
+                                                    <constraint firstItem="hCm-42-tea" firstAttribute="leading" secondItem="6Jz-oV-fHr" secondAttribute="trailing" constant="16" id="s9c-jq-Qit"/>
+                                                    <constraint firstItem="qAp-5C-dV1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hCm-42-tea" secondAttribute="trailing" constant="16" id="uMn-YH-h7I"/>
+                                                </constraints>
+                                            </view>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="lRq-VQ-49L">
+                                                <rect key="frame" x="0.0" y="44" width="375" height="352.33333333333331"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oxf-lT-37r">
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="352.33333333333331"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="취침시간을 설정해주세요!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vlo-pW-YNf">
+                                                                <rect key="frame" x="16" y="0.0" width="241" height="28.666666666666668"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="매일 잠에 들기 전 알림을 드립니다🤗" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BLC-M6-SS6">
+                                                                <rect key="frame" x="16" y="36.666666666666629" width="251" height="20.333333333333329"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="nL3-z9-wRL">
+                                                                <rect key="frame" x="16" y="91.333333333333314" width="343" height="245"/>
+                                                                <date key="date" timeIntervalSinceReferenceDate="572329503.37388802">
+                                                                    <!--2019-02-20 04:25:03 +0000-->
+                                                                </date>
+                                                            </datePicker>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="잠에 들기 전 오늘 한 일을 되돌아보고 내일 할 일을 미리 작성하세요!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LWL-hA-oeN">
+                                                                <rect key="frame" x="16" y="61.000000000000007" width="321.33333333333331" height="14.333333333333336"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstItem="Vlo-pW-YNf" firstAttribute="top" secondItem="oxf-lT-37r" secondAttribute="top" id="3eX-q5-c3C"/>
+                                                            <constraint firstItem="nL3-z9-wRL" firstAttribute="leading" secondItem="oxf-lT-37r" secondAttribute="leading" constant="16" id="7Mp-GX-syQ"/>
+                                                            <constraint firstItem="BLC-M6-SS6" firstAttribute="leading" secondItem="Vlo-pW-YNf" secondAttribute="leading" id="Do8-Bu-1lm"/>
+                                                            <constraint firstItem="nL3-z9-wRL" firstAttribute="top" secondItem="LWL-hA-oeN" secondAttribute="bottom" constant="16" id="FZl-WZ-FXE"/>
+                                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Vlo-pW-YNf" secondAttribute="trailing" constant="16" id="NTL-Lq-Aol"/>
+                                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="LWL-hA-oeN" secondAttribute="trailing" constant="16" id="PWS-pW-Gmg"/>
+                                                            <constraint firstItem="LWL-hA-oeN" firstAttribute="top" secondItem="BLC-M6-SS6" secondAttribute="bottom" constant="4" id="VDf-0y-bDg"/>
+                                                            <constraint firstAttribute="bottom" secondItem="nL3-z9-wRL" secondAttribute="bottom" constant="16" id="VNY-Iz-4vS"/>
+                                                            <constraint firstItem="LWL-hA-oeN" firstAttribute="leading" secondItem="BLC-M6-SS6" secondAttribute="leading" id="fWX-Yh-6Wb"/>
+                                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="BLC-M6-SS6" secondAttribute="trailing" constant="16" id="kz8-q9-mPl"/>
+                                                            <constraint firstItem="BLC-M6-SS6" firstAttribute="top" secondItem="Vlo-pW-YNf" secondAttribute="bottom" constant="8" id="pcD-D6-4fl"/>
+                                                            <constraint firstItem="Vlo-pW-YNf" firstAttribute="leading" secondItem="oxf-lT-37r" secondAttribute="leading" constant="16" id="rle-gj-j7q"/>
+                                                            <constraint firstAttribute="trailing" secondItem="nL3-z9-wRL" secondAttribute="trailing" constant="16" id="rmj-9s-tDr"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                            </stackView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZT2-An-hra">
+                                                <rect key="frame" x="0.0" y="396.33333333333331" width="375" height="44"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="laH-gp-hBi">
+                                                        <rect key="frame" x="146.66666666666666" y="0.0" width="82" height="33"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <state key="normal" title="설정하기🌙"/>
+                                                        <connections>
+                                                            <action selector="tappedSetButton:" destination="rhF-PR-mzc" eventType="touchUpInside" id="Fnv-Na-IkE"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="laH-gp-hBi" firstAttribute="top" secondItem="ZT2-An-hra" secondAttribute="top" id="Qsp-Q4-7mc"/>
+                                                    <constraint firstItem="laH-gp-hBi" firstAttribute="centerX" secondItem="ZT2-An-hra" secondAttribute="centerX" id="fKc-1V-cwr"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="ZT2-An-hra" firstAttribute="height" secondItem="Uj3-6y-Yn9" secondAttribute="height" id="Mmf-3C-F2j"/>
+                                            <constraint firstItem="Uj3-6y-Yn9" firstAttribute="height" secondItem="tRP-62-CU5" secondAttribute="height" multiplier="0.1" id="q3q-Wc-ITl"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="tRP-62-CU5" firstAttribute="leading" secondItem="Ncu-dr-YlP" secondAttribute="leading" id="4fU-mF-CRl"/>
+                                    <constraint firstAttribute="trailing" secondItem="tRP-62-CU5" secondAttribute="trailing" id="EZV-wF-ft0"/>
+                                    <constraint firstItem="tRP-62-CU5" firstAttribute="top" secondItem="Ncu-dr-YlP" secondAttribute="top" id="MPl-fv-Sbm"/>
+                                    <constraint firstAttribute="bottom" secondItem="tRP-62-CU5" secondAttribute="bottom" id="svy-pg-itO"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EmP-RV-DzE">
+                                <rect key="frame" x="0.0" y="778" width="375" height="34"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="0Eh-PR-i8s" firstAttribute="bottom" secondItem="Ncu-dr-YlP" secondAttribute="bottom" id="1p2-0I-e6M"/>
+                            <constraint firstItem="EmP-RV-DzE" firstAttribute="leading" secondItem="0Eh-PR-i8s" secondAttribute="leading" id="8XB-Wk-eXh"/>
+                            <constraint firstItem="0Eh-PR-i8s" firstAttribute="trailing" secondItem="EmP-RV-DzE" secondAttribute="trailing" id="BTz-sF-BU5"/>
+                            <constraint firstItem="Ncu-dr-YlP" firstAttribute="height" secondItem="0Eh-PR-i8s" secondAttribute="height" multiplier="0.6" id="PV5-Vl-bYN"/>
+                            <constraint firstItem="Ncu-dr-YlP" firstAttribute="leading" secondItem="0Eh-PR-i8s" secondAttribute="leading" id="biO-TL-D0u"/>
+                            <constraint firstItem="EmP-RV-DzE" firstAttribute="top" secondItem="ZT2-An-hra" secondAttribute="bottom" id="hoV-Au-mB9"/>
+                            <constraint firstItem="EmP-RV-DzE" firstAttribute="bottom" secondItem="c7V-Hg-jya" secondAttribute="bottom" id="nha-mu-iXr"/>
+                            <constraint firstItem="0Eh-PR-i8s" firstAttribute="trailing" secondItem="Ncu-dr-YlP" secondAttribute="trailing" id="ynv-lb-x4M"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="0Eh-PR-i8s"/>
+                    </view>
+                    <connections>
+                        <outlet property="bedtimeLabel" destination="6Jz-oV-fHr" id="nGF-jU-JHC"/>
+                        <outlet property="bedtimePicker" destination="nL3-z9-wRL" id="iO8-ly-5xx"/>
+                        <outlet property="bedtimeSetButton" destination="hCm-42-tea" id="rPl-gW-cUi"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dC0-e6-g4x" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2014" y="-556"/>
         </scene>
     </scenes>
     <resources>

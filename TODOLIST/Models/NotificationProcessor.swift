@@ -79,4 +79,34 @@ class NotificationProcessor {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifire])
         print("\(identifire)의 알림이 삭제되었습니다.")
     }
+    
+    class func addBedtimeNotification(date: Date) {
+        let identifire = "bedtimeNotification"
+        let content = UNMutableNotificationContent()
+        content.title = "잠들기 전에🌙"
+        content.body = "내일 할 일을 잊지말고 기록해두세요!"
+        content.sound = UNNotificationSound.default
+        
+        let calender = Calendar.current
+        
+        let components = calender.dateComponents([.minute, .hour], from: date)
+            
+        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
+        let request = UNNotificationRequest(identifier: identifire, content: content, trigger: trigger)
+            
+            
+        UNUserNotificationCenter.current().add(request) { (error) in
+                print(error?.localizedDescription ?? "")
+        }
+        print("bedtimeNotification의 알림이 추가되었습니다.")
+    }
+    
+    
+    class func removeBedtimeNotification() {
+        let identifire = "bedtimeNotification"
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifire])
+        print("bedtimeNotification의 알림이 삭제되었습니다.")
+    }
+    
+    
 }
