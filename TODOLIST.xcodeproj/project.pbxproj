@@ -10,6 +10,7 @@
 		3915EB2D221EF2EF00B5857D /* TODOLIST.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3915EB2B221EF2EF00B5857D /* TODOLIST.xcdatamodeld */; };
 		392662A72221DD5800F9388D /* NotificationProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392662A62221DD5800F9388D /* NotificationProcessor.swift */; };
 		392F52342226F8B7001C3F96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 392F52332226F8B7001C3F96 /* Assets.xcassets */; };
+		392F523A2227EFE2001C3F96 /* BedtimeSetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392F52392227EFE2001C3F96 /* BedtimeSetViewController.swift */; };
 		393DCE7B221AB387003B26BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393DCE7A221AB387003B26BA /* AppDelegate.swift */; };
 		393DCE7D221AB387003B26BA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393DCE7C221AB387003B26BA /* ViewController.swift */; };
 		393DCE80221AB387003B26BA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 393DCE7E221AB387003B26BA /* Main.storyboard */; };
@@ -80,6 +81,7 @@
 		3915EB2C221EF2EF00B5857D /* TODOLIST.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TODOLIST.xcdatamodel; sourceTree = "<group>"; };
 		392662A62221DD5800F9388D /* NotificationProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationProcessor.swift; sourceTree = "<group>"; };
 		392F52332226F8B7001C3F96 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		392F52392227EFE2001C3F96 /* BedtimeSetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BedtimeSetViewController.swift; sourceTree = "<group>"; };
 		393DCE77221AB387003B26BA /* TODOLIST.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TODOLIST.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		393DCE7A221AB387003B26BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		393DCE7C221AB387003B26BA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 			children = (
 				393DCE7C221AB387003B26BA /* ViewController.swift */,
 				393DCE8C221AB6FB003B26BA /* HistoryViewController.swift */,
+				392F52392227EFE2001C3F96 /* BedtimeSetViewController.swift */,
 				393DCE8E221AB703003B26BA /* MoreViewController.swift */,
 				39E08F6F221CE3200029C1B3 /* WriteViewController.swift */,
 				39A3F38D2223E00C006CFB2A /* MapViewController.swift */,
@@ -409,6 +412,7 @@
 				393DCE7D221AB387003B26BA /* ViewController.swift in Sources */,
 				3915EB2D221EF2EF00B5857D /* TODOLIST.xcdatamodeld in Sources */,
 				39A3F397222507BD006CFB2A /* LocationSearchResult.swift in Sources */,
+				392F523A2227EFE2001C3F96 /* BedtimeSetViewController.swift in Sources */,
 				39E08F70221CE3200029C1B3 /* WriteViewController.swift in Sources */,
 				393DCE7B221AB387003B26BA /* AppDelegate.swift in Sources */,
 				392662A72221DD5800F9388D /* NotificationProcessor.swift in Sources */,

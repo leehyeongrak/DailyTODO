@@ -74,7 +74,7 @@ class WriteViewController: UIViewController {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
         
-        ///////////////////////////////////// 수정 ㅎ ////////////////
+        ///////////////////////////////////// 수정 후 ////////////////
         let task = Task(context: context)
         task.todoText = todoTextField.text
         task.memoText = memoTextField.text
@@ -89,7 +89,11 @@ class WriteViewController: UIViewController {
         
         if timeSettingButton.state == .selected {
             task.alarmOnOff = true
-            task.alarmTime = timePicker.date
+            if isToday {
+                task.alarmTime = timePicker.date
+            } else {
+                task.alarmTime = timePicker.date.addingTimeInterval(86400)
+            }
         }
         if locationSettingButton.state == .selected {
             task.alarmOnOff = true
@@ -99,44 +103,6 @@ class WriteViewController: UIViewController {
             task.alarmOnOff = false
         }
         task.checkDone = false
-        
-        ///////////////////////////////////// 수정 전 ////////////////
-//        if isToday {
-//            let task = TodayTask(context: context)
-//            task.todoText = todoTextField.text
-//            task.memoText = memoTextField.text
-//            task.creationTime = Date()
-//            
-//            if timeSettingButton.state == .selected {
-//                task.alarmOnOff = true
-//                task.alarmTime = timePicker.date
-//            }
-//            if locationSettingButton.state == .selected {
-//                task.alarmOnOff = true
-//                task.alarmLocation = selectedLocation?.nsDictionary
-//            }
-//            if timeSettingButton.state == .normal && locationSettingButton.state == .normal {
-//                task.alarmOnOff = false
-//            }
-//            task.checkDone = false
-//        } else {
-//            let task = TomorrowTask(context: context)
-//            task.todoText = todoTextField.text
-//            task.memoText = memoTextField.text
-//            task.creationTime = Date()
-//            
-//            if timeSettingButton.state == .selected {
-//                task.alarmOnOff = true
-//                task.alarmTime = timePicker.date
-//            }
-//            if locationSettingButton.state == .selected {
-//                task.alarmOnOff = true
-//                task.alarmLocation = selectedLocation?.nsDictionary
-//            }
-//            if timeSettingButton.state == .normal && locationSettingButton.state == .normal {
-//                task.alarmOnOff = false
-//            }
-//        }
         
         // Save the data to coredata
         (UIApplication.shared.delegate as! AppDelegate).saveContext()
