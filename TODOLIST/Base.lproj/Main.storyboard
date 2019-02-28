@@ -194,6 +194,7 @@
                                                                         <constraint firstAttribute="width" constant="30" id="2eK-2R-E1k"/>
                                                                         <constraint firstAttribute="height" constant="30" id="4jb-4c-t0U"/>
                                                                     </constraints>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <state key="normal" title="□">
                                                                         <color key="titleColor" red="1" green="0.57810515169999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     </state>
@@ -201,14 +202,15 @@
                                                                         <action selector="tappedCheckDoneButton:" destination="xPV-1e-lQX" eventType="touchUpInside" id="oEg-2W-mos"/>
                                                                     </connections>
                                                                 </button>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hva-Lp-1SH">
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hva-Lp-1SH">
                                                                     <rect key="frame" x="337" y="5" width="30" height="30"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="30" id="DlA-UG-lM9"/>
                                                                         <constraint firstAttribute="width" constant="30" id="b4g-p8-dct"/>
                                                                     </constraints>
-                                                                    <state key="normal" title="🔕"/>
+                                                                    <state key="normal" image="AlarmOffIcon"/>
+                                                                    <state key="selected" image="AlarmOnIcon"/>
                                                                     <connections>
                                                                         <action selector="tappedAlarmOnOffButton:" destination="xPV-1e-lQX" eventType="touchUpInside" id="VUh-QC-31A"/>
                                                                     </connections>
@@ -424,14 +426,15 @@
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C8e-rq-3QY">
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C8e-rq-3QY">
                                                                     <rect key="frame" x="337" y="5" width="30" height="30"/>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="30" id="0qW-We-UnU"/>
                                                                         <constraint firstAttribute="height" constant="30" id="Suu-Mr-J8H"/>
                                                                     </constraints>
-                                                                    <state key="normal" title="🔕"/>
+                                                                    <state key="normal" image="TomorrowAlarmOffIcon"/>
+                                                                    <state key="selected" image="TomorrowAlarmOnIcon"/>
                                                                 </button>
                                                             </subviews>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -735,8 +738,8 @@
                                                                     <segue destination="7ag-8h-UGh" kind="presentation" id="t3o-jh-nX8"/>
                                                                 </connections>
                                                             </button>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="right" lineBreakMode="headTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wh2-bC-IMX">
-                                                                <rect key="frame" x="161.33333333333334" y="61.333333333333314" width="10" height="12"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="장소가 설정되지 않았습니다." textAlignment="right" lineBreakMode="headTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wh2-bC-IMX">
+                                                                <rect key="frame" x="58.333333333333343" y="61.333333333333314" width="113" height="12"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -748,8 +751,8 @@
                                                                     <accessibilityTraits key="traits" notEnabled="YES"/>
                                                                 </accessibility>
                                                             </view>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="장소가 설정되지 않았습니다." textAlignment="right" lineBreakMode="headTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YHU-dg-Hv0">
-                                                                <rect key="frame" x="36.333333333333343" y="42.999999999999943" width="135" height="14.333333333333336"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="right" lineBreakMode="headTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YHU-dg-Hv0">
+                                                                <rect key="frame" x="165.33333333333334" y="42.999999999999943" width="6" height="14.333333333333336"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -1091,9 +1094,13 @@
         </scene>
     </scenes>
     <resources>
+        <image name="AlarmOffIcon" width="15" height="19"/>
+        <image name="AlarmOnIcon" width="25" height="19"/>
         <image name="HistoryIcon" width="24" height="25"/>
         <image name="MoreIcon" width="25" height="8"/>
         <image name="TodoIcon" width="23" height="25"/>
+        <image name="TomorrowAlarmOffIcon" width="15" height="19"/>
+        <image name="TomorrowAlarmOnIcon" width="25" height="19"/>
         <image name="background" width="1180" height="140"/>
     </resources>
 </document>

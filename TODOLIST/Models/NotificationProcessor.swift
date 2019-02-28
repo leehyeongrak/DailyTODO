@@ -11,8 +11,8 @@ import UserNotifications
 import CoreLocation
 
 class NotificationProcessor {
-    class func addTimeNotification(task: TodayTask) {
-        let identifire = "T" + "\(task.creationTime!)"
+    class func addTimeNotification(task: Task) {
+        let identifire = "T" + "\(task.classifiedTime!)"
         let content = UNMutableNotificationContent()
         if let todoText = task.todoText {
             content.title = "업무를 수행하실 시간이 됐어요!"
@@ -39,14 +39,14 @@ class NotificationProcessor {
     }
     
 
-    class func removeTimeNotification(task: TodayTask) {
-        let identifire = "T" + "\(task.creationTime!)"
+    class func removeTimeNotification(task: Task) {
+        let identifire = "T" + "\(task.classifiedTime!)"
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifire])
         print("\(identifire)의 알림이 삭제되었습니다.")
     }
     
-    class func addLocationNotification(task: TodayTask) {
-        let identifire = "L" + "\(task.creationTime!)"
+    class func addLocationNotification(task: Task) {
+        let identifire = "L" + "\(task.classifiedTime!)"
         let content = UNMutableNotificationContent()
         if let todoText = task.todoText {
             content.title = "업무를 수행하실 장소에 왔어요!"
@@ -74,8 +74,8 @@ class NotificationProcessor {
         }
     }
     
-    class func removeLocationNofitication(task: TodayTask) {
-        let identifire = "L" + "\(task.creationTime!)"
+    class func removeLocationNofitication(task: Task) {
+        let identifire = "L" + "\(task.classifiedTime!)"
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifire])
         print("\(identifire)의 알림이 삭제되었습니다.")
     }

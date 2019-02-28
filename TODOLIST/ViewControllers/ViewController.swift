@@ -15,8 +15,9 @@ class ViewController: UIViewController {
     
     // CoreDate 프로퍼티
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    var todayTasks: [TodayTask] = []
-    var tomorrowTasks: [TomorrowTask] = []
+    var tasks: [Task] = []
+    var todayTasks: [Task] = []
+    var tomorrowTasks: [Task] = []
     
     // UserNotifications 프로퍼티
     let center = UNUserNotificationCenter.current()
@@ -63,6 +64,7 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         fetchAndReloadData()
+        
     }
     
     func setupLocationManager() {
@@ -83,8 +85,32 @@ class ViewController: UIViewController {
     
     func fetchAndReloadData() {
         do {
-            todayTasks = try context.fetch(TodayTask.fetchRequest())
-            tomorrowTasks = try context.fetch(TomorrowTask.fetchRequest())
+            tasks = try context.fetch(Task.fetchRequest())
+            
+            var tempTodays: [Task] = []
+            var tempTomorrows: [Task] = []
+            
+            for task in tasks {
+                let date = task.classifiedTime
+                let calendar = Calendar.current
+                let dateComponent = calendar.dateComponents([.year, .month, .day], from: date!)
+                
+                let currentDate = Date()
+                let currentDateComponent = calendar.dateComponents([.year, .month, .day], from: currentDate)
+                
+                if dateComponent.year! == currentDateComponent.year! && dateComponent.month! == currentDateComponent.month! && dateComponent.day! == currentDateComponent.day! {
+                    tempTodays.append(task)
+                } else {
+                    let dateTimeInterval = date?.timeIntervalSince1970
+                    let currentDateTimeInterval = currentDate.timeIntervalSince1970
+                    
+                    if dateTimeInterval! > currentDateTimeInterval {
+                        tempTomorrows.append(task)
+                    }
+                }
+            }
+            todayTasks = tempTodays
+            tomorrowTasks = tempTomorrows
         } catch  {
             print("Fetching Failed")
         }
@@ -137,6 +163,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            
             if tableView == todayTableView {
                 let task = todayTasks[indexPath.row]
                 if task.alarmTime != nil {
@@ -180,6 +207,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "TodayCell", for: indexPath) as? TodayTableViewCell else {
                 return UITableViewCell()
             }
+            print("Index: \(indexPath.row)")
             let task = todayTasks[indexPath.row]
             cell.task = task
             

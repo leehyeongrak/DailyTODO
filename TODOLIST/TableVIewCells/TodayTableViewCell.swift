@@ -10,7 +10,7 @@ import UIKit
 
 class TodayTableViewCell: UITableViewCell {
 
-    var task: TodayTask? {
+    var task: Task? {
         didSet {
             matchData()
         }
@@ -35,6 +35,16 @@ class TodayTableViewCell: UITableViewCell {
     }
     @IBAction func tappedAlarmOnOffButton(_ sender: UIButton) {
         
+        UIView.animate(withDuration: 0.1,
+                       animations: {
+                        self.alarmOnOffButton.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        },
+                       completion: { _ in
+                        UIView.animate(withDuration: 0.1) {
+                            self.alarmOnOffButton.transform = CGAffineTransform.identity
+                        }
+        })
+        
         if task?.alarmTime == nil && task?.alarmLocation == nil {
             return
         }
@@ -46,7 +56,7 @@ class TodayTableViewCell: UITableViewCell {
             if task?.alarmLocation != nil {
                 NotificationProcessor.removeTimeNotification(task: task!)
             }
-            alarmOnOffButton.setTitle("🔕", for: .normal)
+            alarmOnOffButton.isSelected = false
         } else {
             if task?.alarmTime != nil {
                 NotificationProcessor.addTimeNotification(task: task!)
@@ -54,7 +64,7 @@ class TodayTableViewCell: UITableViewCell {
             if task?.alarmLocation != nil {
                 NotificationProcessor.addLocationNotification(task: task!)
             }
-            alarmOnOffButton.setTitle("🔔", for: .normal)
+            alarmOnOffButton.isSelected = true
         }
         
         task?.alarmOnOff = !((task?.alarmOnOff)!)
@@ -68,7 +78,7 @@ class TodayTableViewCell: UITableViewCell {
             
             todoLabel.text = todoText
             if memoText == "" {
-                memoLabel.text = "--"
+                memoLabel.text = "-"
             } else {
                 memoLabel.text = memoText
             }
@@ -81,29 +91,29 @@ class TodayTableViewCell: UITableViewCell {
             
             // 시간설정 여부에 따른 옵셔널값 처리
             if task.alarmTime == nil {
-                alarmTimeLabel.text = "--"
+                alarmTimeLabel.text = "-"
             } else {
                 alarmTimeLabel.text = dateFormatter.string(from: task.alarmTime!)
                 if task.alarmOnOff {
                     NotificationProcessor.addTimeNotification(task: task)
-                    alarmOnOffButton.setTitle("🔔", for: .normal)
+                    alarmOnOffButton.isSelected = true
                 } else {
-                    alarmOnOffButton.setTitle("🔕", for: .normal)
+                    alarmOnOffButton.isSelected = false
                 }
             }
             
             // 장소설정 여부에 따른 옵셔널값 처리
             if task.alarmLocation == nil {
-                alarmLocationLabel.text = "--"
+                alarmLocationLabel.text = "-"
             } else {
                 let place = task.alarmLocation!["placeName"] as! String
                 let roadAddress = task.alarmLocation!["roadAddressName"] as! String
                 alarmLocationLabel.text = "\(place)(\(roadAddress))"
                 if task.alarmOnOff {
                     NotificationProcessor.addLocationNotification(task: task)
-                    alarmOnOffButton.setTitle("🔔", for: .normal)
+                    alarmOnOffButton.isSelected = true
                 } else {
-                    alarmOnOffButton.setTitle("🔕", for: .normal)
+                    alarmOnOffButton.isSelected = false
                 }
             }
             
@@ -118,10 +128,9 @@ class TodayTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         self.selectionStyle = .none
         
-        alarmOnOffButton.layer.cornerRadius = 15
-        alarmOnOffButton.layer.masksToBounds = true
+        
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
