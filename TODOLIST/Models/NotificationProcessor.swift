@@ -58,7 +58,7 @@ class NotificationProcessor {
             let latitude = Double(location["y"] as! String)!
             let longitude = Double(location["x"] as! String)!
             let center = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-            let region = CLCircularRegion(center: center, radius: 10.0, identifier: identifire)
+            let region = CLCircularRegion(center: center, radius: 100.0, identifier: identifire)
             region.notifyOnEntry = true
             region.notifyOnExit = false
 

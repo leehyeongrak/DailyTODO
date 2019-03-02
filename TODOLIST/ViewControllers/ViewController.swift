@@ -14,7 +14,9 @@ import CoreLocation
 class ViewController: UIViewController {
     
     // CoreDate 프로퍼티
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+//    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let context = CoreDataStack.shared.persistentContainer.viewContext
+    
     var tasks: [Task] = []
     var todayTasks: [Task] = []
     var tomorrowTasks: [Task] = []
@@ -60,20 +62,23 @@ class ViewController: UIViewController {
         todayTableView.dataSource = self
         tomorrowTableView.delegate = self
         tomorrowTableView.dataSource = self
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         fetchAndReloadData()
+        print(Date())
         
     }
     
     func setupLocationManager() {
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
-//        locationManager.startUpdatingLocation()
-//        locationManager.distanceFilter = kCLDistanceFilterNone
-//        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.startMonitoringSignificantLocationChanges()
+        locationManager.startUpdatingLocation()
+        locationManager.distanceFilter = kCLDistanceFilterNone
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//        locationManager.startMonitoringSignificantLocationChanges()
         alwaysAuthorization()
     }
     
@@ -173,11 +178,13 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                     NotificationProcessor.removeTimeNotification(task: task)
                 }
                 context.delete(task)
-                (UIApplication.shared.delegate as! AppDelegate).saveContext()
+//                (UIApplication.shared.delegate as! AppDelegate).saveContext()
+                CoreDataStack.shared.saveContext()
             } else if tableView == tomorrowTableView {
                 let task = tomorrowTasks[indexPath.row]
                 context.delete(task)
-                (UIApplication.shared.delegate as! AppDelegate).saveContext()
+//                (UIApplication.shared.delegate as! AppDelegate).saveContext()
+                CoreDataStack.shared.saveContext()
             }
             fetchAndReloadData()
         }
@@ -207,7 +214,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "TodayCell", for: indexPath) as? TodayTableViewCell else {
                 return UITableViewCell()
             }
-            print("Index: \(indexPath.row)")
             let task = todayTasks[indexPath.row]
             cell.task = task
             

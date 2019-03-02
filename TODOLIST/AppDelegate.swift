@@ -89,5 +89,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
+    lazy var applicationDocumentsDirectory: NSURL? = {
+        return FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.rak.dailytodo") ?? nil
+        }() as! NSURL
+
 }
 
