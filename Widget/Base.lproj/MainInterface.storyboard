@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="M4Y-Lb-cyx">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Today View Controller-->
+        <scene sceneID="cwh-vc-ff4">
+            <objects>
+                <viewController id="M4Y-Lb-cyx" customClass="TodayViewController" customModule="Widget" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" simulatedAppContext="notificationCenter" id="S3S-Oj-5AN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5k5-4u-z1A">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="separatorColor" red="1" green="0.57810515169999999" blue="0.0" alpha="0.14999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="WidgetCell" rowHeight="40" id="C5w-h9-XxU" customClass="WidgetTableViewCell" customModule="Widget">
+                                        <rect key="frame" x="0.0" y="28" width="320" height="40"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="C5w-h9-XxU" id="8qG-fh-AMH">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="39.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TitleLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GDS-rJ-b5T">
+                                                    <rect key="frame" x="42" y="9.5" width="75" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UqA-be-Ay6">
+                                                    <rect key="frame" x="8" y="5" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="aSW-0b-blK"/>
+                                                        <constraint firstAttribute="width" constant="30" id="j4k-TI-H4b"/>
+                                                    </constraints>
+                                                    <state key="normal" image="WidgetNotCheckDoneIcon"/>
+                                                    <state key="selected" image="WidgetCheckDoneIcon"/>
+                                                    <connections>
+                                                        <action selector="tappedCheckDoneButton:" destination="C5w-h9-XxU" eventType="touchUpInside" id="tiY-CH-g72"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sU8-nf-NZB">
+                                                    <rect key="frame" x="282" y="5" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="WeM-EU-aNh"/>
+                                                        <constraint firstAttribute="width" constant="30" id="m01-CX-OCX"/>
+                                                    </constraints>
+                                                    <state key="normal" image="WidgetAlarmOffIcon"/>
+                                                    <state key="selected" image="WidgetAlarmOnIcon"/>
+                                                    <connections>
+                                                        <action selector="tappedAlarmOnOffButton:" destination="C5w-h9-XxU" eventType="touchUpInside" id="Koz-Oa-nqM"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="UqA-be-Ay6" firstAttribute="leading" secondItem="8qG-fh-AMH" secondAttribute="leading" constant="8" id="0Ap-m7-9pt"/>
+                                                <constraint firstItem="sU8-nf-NZB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="GDS-rJ-b5T" secondAttribute="trailing" constant="8" id="SA4-ZG-jYz"/>
+                                                <constraint firstItem="GDS-rJ-b5T" firstAttribute="leading" secondItem="UqA-be-Ay6" secondAttribute="trailing" constant="4" id="ZiQ-vv-XFh"/>
+                                                <constraint firstItem="UqA-be-Ay6" firstAttribute="centerY" secondItem="8qG-fh-AMH" secondAttribute="centerY" id="b7h-K8-Iir"/>
+                                                <constraint firstAttribute="trailing" secondItem="sU8-nf-NZB" secondAttribute="trailing" constant="8" id="hdF-e9-XvY"/>
+                                                <constraint firstItem="GDS-rJ-b5T" firstAttribute="centerY" secondItem="UqA-be-Ay6" secondAttribute="centerY" id="pq2-nI-SrT"/>
+                                                <constraint firstItem="sU8-nf-NZB" firstAttribute="centerY" secondItem="8qG-fh-AMH" secondAttribute="centerY" id="vbH-MZ-xKf"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="alarmOnOffButton" destination="sU8-nf-NZB" id="9OD-BO-eSz"/>
+                                            <outlet property="checkDoneButton" destination="UqA-be-Ay6" id="pEm-Yt-6Mw"/>
+                                            <outlet property="todoLabel" destination="GDS-rJ-b5T" id="eah-0l-C3z"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="ssy-KU-ocm" firstAttribute="top" secondItem="5k5-4u-z1A" secondAttribute="top" id="549-3N-DGP"/>
+                            <constraint firstItem="5k5-4u-z1A" firstAttribute="bottom" secondItem="ssy-KU-ocm" secondAttribute="bottom" id="XaE-Js-dUa"/>
+                            <constraint firstItem="5k5-4u-z1A" firstAttribute="trailing" secondItem="ssy-KU-ocm" secondAttribute="trailing" id="e1g-tu-twj"/>
+                            <constraint firstItem="ssy-KU-ocm" firstAttribute="leading" secondItem="5k5-4u-z1A" secondAttribute="leading" id="wvn-hh-Q8r"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ssy-KU-ocm"/>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="150"/>
+                    <connections>
+                        <outlet property="widgetTableView" destination="5k5-4u-z1A" id="lrs-3Y-B1U"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="WidgetAlarmOffIcon" width="15" height="19"/>
+        <image name="WidgetAlarmOnIcon" width="25" height="19"/>
+        <image name="WidgetCheckDoneIcon" width="19" height="19"/>
+        <image name="WidgetNotCheckDoneIcon" width="19" height="19"/>
+    </resources>
+</document>

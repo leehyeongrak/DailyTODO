@@ -24,17 +24,21 @@ class TodayTableViewCell: UITableViewCell {
     @IBOutlet weak var alarmLocationLabel: UILabel!
     
     @IBAction func tappedCheckDoneButton(_ sender: UIButton) {
-        if task!.checkDone {
-            checkDoneButton.setTitle("□", for: .normal)
-        } else {
-            checkDoneButton.setTitle("■", for: .normal)
-        }
+        UIView.animate(withDuration: 0.1,
+                       animations: {
+                        self.checkDoneButton.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        },
+                       completion: { _ in
+                        UIView.animate(withDuration: 0.1) {
+                            self.checkDoneButton.transform = CGAffineTransform.identity
+                        }
+        })
         
+        checkDoneButton.isSelected = !checkDoneButton.isSelected
         task?.checkDone = !((task?.checkDone)!)
-        (UIApplication.shared.delegate as! AppDelegate).saveContext()
+        CoreDataStack.shared.saveContext()
     }
     @IBAction func tappedAlarmOnOffButton(_ sender: UIButton) {
-        
         UIView.animate(withDuration: 0.1,
                        animations: {
                         self.alarmOnOffButton.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
@@ -68,7 +72,7 @@ class TodayTableViewCell: UITableViewCell {
         }
         
         task?.alarmOnOff = !((task?.alarmOnOff)!)
-        (UIApplication.shared.delegate as! AppDelegate).saveContext()
+        CoreDataStack.shared.saveContext()
     }
     
     func matchData() {
@@ -117,11 +121,7 @@ class TodayTableViewCell: UITableViewCell {
                 }
             }
             
-            if task.checkDone {
-                checkDoneButton.setTitle("■", for: .normal)
-            } else {
-                checkDoneButton.setTitle("□", for: .normal)
-            }
+            checkDoneButton.isSelected = task.checkDone
         }
     }
     

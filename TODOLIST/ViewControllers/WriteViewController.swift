@@ -71,10 +71,8 @@ class WriteViewController: UIViewController {
             return
         }
         
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        let context = CoreDataStack.shared.persistentContainer.viewContext
         
-        
-        ///////////////////////////////////// 수정 후 ////////////////
         let task = Task(context: context)
         task.todoText = todoTextField.text
         task.memoText = memoTextField.text
@@ -105,7 +103,7 @@ class WriteViewController: UIViewController {
         task.checkDone = false
         
         // Save the data to coredata
-        (UIApplication.shared.delegate as! AppDelegate).saveContext()
+        CoreDataStack.shared.saveContext()
 
         self.dismiss(animated: true, completion: nil)
         self.delegate?.addTask()
