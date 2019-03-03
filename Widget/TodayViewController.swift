@@ -95,56 +95,56 @@ class WidgetTableViewCell: UITableViewCell {
     @IBOutlet weak var checkDoneButton: UIButton!
    
     @IBAction func tappedCheckDoneButton(_ sender: UIButton) {
-        UIView.animate(withDuration: 0.1,
-                       animations: {
-                        self.checkDoneButton.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-        },
-                       completion: { _ in
-                        UIView.animate(withDuration: 0.1) {
-                            self.checkDoneButton.transform = CGAffineTransform.identity
-                        }
-        })
-        
-        checkDoneButton.isSelected = !checkDoneButton.isSelected
-        task?.checkDone = !((task?.checkDone)!)
-        CoreDataStack.shared.saveContext()
+//        UIView.animate(withDuration: 0.1,
+//                       animations: {
+//                        self.checkDoneButton.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+//        },
+//                       completion: { _ in
+//                        UIView.animate(withDuration: 0.1) {
+//                            self.checkDoneButton.transform = CGAffineTransform.identity
+//                        }
+//        })
+//
+//        checkDoneButton.isSelected = !checkDoneButton.isSelected
+//        task?.checkDone = !((task?.checkDone)!)
+//        CoreDataStack.shared.saveContext()
     }
     
     @IBAction func tappedAlarmOnOffButton(_ sender: UIButton) {
-        UIView.animate(withDuration: 0.1,
-                       animations: {
-                        self.alarmOnOffButton.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-        },
-                       completion: { _ in
-                        UIView.animate(withDuration: 0.1) {
-                            self.alarmOnOffButton.transform = CGAffineTransform.identity
-                        }
-        })
-        
-        if task?.alarmTime == nil && task?.alarmLocation == nil {
-            return
-        }
-        
-        if task!.alarmOnOff {
-            if task?.alarmTime != nil {
-                NotificationProcessor.removeTimeNotification(task: task!)
-            }
-            if task?.alarmLocation != nil {
-                NotificationProcessor.removeTimeNotification(task: task!)
-            }
-            alarmOnOffButton.isSelected = false
-        } else {
-            if task?.alarmTime != nil {
-                NotificationProcessor.addTimeNotification(task: task!)
-            }
-            if task?.alarmLocation != nil {
-                NotificationProcessor.addLocationNotification(task: task!)
-            }
-            alarmOnOffButton.isSelected = true
-        }
-        
-        task?.alarmOnOff = !((task?.alarmOnOff)!)
-        CoreDataStack.shared.saveContext()
+//        UIView.animate(withDuration: 0.1,
+//                       animations: {
+//                        self.alarmOnOffButton.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+//        },
+//                       completion: { _ in
+//                        UIView.animate(withDuration: 0.1) {
+//                            self.alarmOnOffButton.transform = CGAffineTransform.identity
+//                        }
+//        })
+//
+//        if task?.alarmTime == nil && task?.alarmLocation == nil {
+//            return
+//        }
+//
+//        if task!.alarmOnOff {
+//            if task?.alarmTime != nil {
+//                NotificationProcessor.removeTimeNotification(task: task!)
+//            }
+//            if task?.alarmLocation != nil {
+//                NotificationProcessor.removeTimeNotification(task: task!)
+//            }
+//            alarmOnOffButton.isSelected = false
+//        } else {
+//            if task?.alarmTime != nil {
+//                NotificationProcessor.addTimeNotification(task: task!)
+//            }
+//            if task?.alarmLocation != nil {
+//                NotificationProcessor.addLocationNotification(task: task!)
+//            }
+//            alarmOnOffButton.isSelected = true
+//        }
+//
+//        task?.alarmOnOff = !((task?.alarmOnOff)!)
+//        CoreDataStack.shared.saveContext()
     }
     
     func matchData() {
@@ -153,6 +153,14 @@ class WidgetTableViewCell: UITableViewCell {
         todoLabel.text = task.todoText
         alarmOnOffButton.isSelected = task.alarmOnOff
         checkDoneButton.isSelected = task.checkDone
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        todoLabel.text = nil
+        checkDoneButton.isSelected = false
+        alarmOnOffButton.isSelected = false
     }
 }
 
