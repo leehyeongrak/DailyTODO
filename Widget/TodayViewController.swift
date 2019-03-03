@@ -16,18 +16,26 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     var tasks: [Task] = []
     var todayTasks: [Task] = []
-    var tomorrowTasks: [Task] = []
-    @IBOutlet weak var widgetTableView: UITableView!
     
+    @IBOutlet weak var widgetTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         extensionContext?.widgetLargestAvailableDisplayMode = .expanded
-        
+        widgetTableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(openApp)))
         fetchData()
         
         widgetTableView.delegate = self
         widgetTableView.dataSource = self
+    }
+    
+    @objc func openApp() {
+        let myAppUrl = NSURL(string: "DailyTODO://")!
+        extensionContext?.open(myAppUrl as URL, completionHandler: { (success) in
+            if (!success) {
+                print("error")
+            }
+        })
     }
     
     func fetchData() {
@@ -145,13 +153,6 @@ class WidgetTableViewCell: UITableViewCell {
         todoLabel.text = task.todoText
         alarmOnOffButton.isSelected = task.alarmOnOff
         checkDoneButton.isSelected = task.checkDone
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        print("선택")
-        // Configure the view for the selected state
     }
 }
 
