@@ -16,7 +16,7 @@ class NotificationProcessor {
         let content = UNMutableNotificationContent()
         if let todoText = task.todoText {
             content.title = "업무를 수행하실 시간이 됐어요!"
-            content.body = "👉\(todoText)"
+            content.body = "\(todoText)"
             content.sound = UNNotificationSound.default
         }
         
@@ -50,7 +50,7 @@ class NotificationProcessor {
         let content = UNMutableNotificationContent()
         if let todoText = task.todoText {
             content.title = "업무를 수행하실 장소에 왔어요!"
-            content.body = "👉\(todoText)"
+            content.body = "\(todoText)"
             content.sound = UNNotificationSound.default
         }
         
@@ -83,7 +83,6 @@ class NotificationProcessor {
     class func addBedtimeNotification(date: Date) {
         let identifire = "bedtimeNotification"
         let content = UNMutableNotificationContent()
-        content.title = "잠들기 전에🌙"
         content.body = "내일 할 일을 잊지말고 기록해두세요!"
         content.sound = UNNotificationSound.default
         

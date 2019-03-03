@@ -99,7 +99,7 @@ class TodayTableViewCell: UITableViewCell {
             } else {
                 alarmTimeLabel.text = dateFormatter.string(from: task.alarmTime!)
                 if task.alarmOnOff {
-                    NotificationProcessor.addTimeNotification(task: task)
+//                    NotificationProcessor.addTimeNotification(task: task)
                     alarmOnOffButton.isSelected = true
                 } else {
                     alarmOnOffButton.isSelected = false
@@ -114,7 +114,7 @@ class TodayTableViewCell: UITableViewCell {
                 let roadAddress = task.alarmLocation!["roadAddressName"] as! String
                 alarmLocationLabel.text = "\(place)(\(roadAddress))"
                 if task.alarmOnOff {
-                    NotificationProcessor.addLocationNotification(task: task)
+//                    NotificationProcessor.addLocationNotification(task: task)
                     alarmOnOffButton.isSelected = true
                 } else {
                     alarmOnOffButton.isSelected = false
@@ -127,14 +127,17 @@ class TodayTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         self.selectionStyle = .none
-        
-        
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        todoLabel.text = nil
+        memoLabel.text = nil
+        checkDoneButton.isSelected = false
+        alarmOnOffButton.isSelected = false
+        alarmTimeLabel.text = nil
+        alarmLocationLabel.text = nil
     }
-
+    
 }

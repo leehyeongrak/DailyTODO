@@ -14,7 +14,6 @@ import CoreLocation
 class ViewController: UIViewController {
     
     // CoreDate 프로퍼티
-//    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let context = CoreDataStack.shared.persistentContainer.viewContext
     
     var tasks: [Task] = []
@@ -68,8 +67,6 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         fetchAndReloadData()
-        print(Date())
-        
     }
     
     func setupLocationManager() {
@@ -133,12 +130,21 @@ class ViewController: UIViewController {
 
 // Protocols & Extensions //////////////////////////////////////////////////
 protocol AddTaskDelegate {
-    func addTask()
+    func addTask(task: Task)
 }
 
 extension ViewController: AddTaskDelegate {
-    func addTask() {
+    func addTask(task: Task) {
         fetchAndReloadData()
+        
+        if task.alarmTime != nil {
+            NotificationProcessor.addTimeNotification(task: task)
+        }
+        
+        if task.alarmLocation != nil {
+            NotificationProcessor.addLocationNotification(task: task)
+        }
+        
     }
 }
 
@@ -178,12 +184,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
                     NotificationProcessor.removeTimeNotification(task: task)
                 }
                 context.delete(task)
-//                (UIApplication.shared.delegate as! AppDelegate).saveContext()
                 CoreDataStack.shared.saveContext()
             } else if tableView == tomorrowTableView {
                 let task = tomorrowTasks[indexPath.row]
                 context.delete(task)
-//                (UIApplication.shared.delegate as! AppDelegate).saveContext()
                 CoreDataStack.shared.saveContext()
             }
             fetchAndReloadData()

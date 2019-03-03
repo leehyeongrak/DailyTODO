@@ -106,7 +106,7 @@ class WriteViewController: UIViewController {
         CoreDataStack.shared.saveContext()
 
         self.dismiss(animated: true, completion: nil)
-        self.delegate?.addTask()
+        self.delegate?.addTask(task: task)
     }
     
     @IBAction func tappedCloseButton(_ sender: UIButton) {

@@ -76,4 +76,14 @@ class TomorrowTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        todoLabel.text = nil
+        memoLabel.text = nil
+        alarmOnOffButton.isSelected = false
+        alarmTimeLabel.text = nil
+        alarmLocationLabel.text = nil
+    }
+    
 }
