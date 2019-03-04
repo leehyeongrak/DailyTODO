@@ -13,6 +13,14 @@ class HistoryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let attrs = [
+            NSAttributedString.Key.foregroundColor: UIColor.darkGray,
+            NSAttributedString.Key.font: UIFont(name: "Apple Color Emoji", size: 20)!
+        ]
+        navigationController?.navigationBar.titleTextAttributes = attrs
+        navigationController?.navigationBar.barTintColor = .white
+        navigationController?.navigationBar.shadowImage = UIImage()
+        
         // Do any additional setup after loading the view.
     }
     

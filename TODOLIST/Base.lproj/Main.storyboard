@@ -10,21 +10,68 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--기록-->
+        <!--Data Source-->
         <scene sceneID="0Gm-9y-gid">
             <objects>
                 <viewController id="jBa-Ow-4o3" customClass="HistoryViewController" customModule="TODOLIST" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fzp-EK-lbR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZlB-nv-B8h" customClass="FSCalendar">
+                                <rect key="frame" x="0.0" y="88.000000000000028" width="375" height="364.66666666666674"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderRadius">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="headerTitleColor">
+                                        <color key="value" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="weekdayTextColor">
+                                        <color key="value" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="dataSource" destination="jBa-Ow-4o3" id="IPi-MG-Wub"/>
+                                    <outlet property="delegate" destination="jBa-Ow-4o3" id="od7-X4-24k"/>
+                                </connections>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FMW-g5-Sno">
+                                <rect key="frame" x="0.0" y="468.66666666666674" width="375" height="260.33333333333326"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SelectedDateLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wfh-j6-gYU">
+                                        <rect key="frame" x="16" y="16" width="145" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="wfh-j6-gYU" firstAttribute="top" secondItem="FMW-g5-Sno" secondAttribute="top" constant="16" id="JUE-fv-pOD"/>
+                                    <constraint firstItem="wfh-j6-gYU" firstAttribute="leading" secondItem="FMW-g5-Sno" secondAttribute="leading" constant="16" id="dtN-yE-c85"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="ZlB-nv-B8h" firstAttribute="top" secondItem="W2V-cE-oQT" secondAttribute="top" id="BEf-Yh-fMG"/>
+                            <constraint firstItem="W2V-cE-oQT" firstAttribute="bottom" secondItem="FMW-g5-Sno" secondAttribute="bottom" id="Hti-Pv-cbj"/>
+                            <constraint firstItem="ZlB-nv-B8h" firstAttribute="leading" secondItem="W2V-cE-oQT" secondAttribute="leading" id="Iek-FS-Oob"/>
+                            <constraint firstItem="FMW-g5-Sno" firstAttribute="top" secondItem="ZlB-nv-B8h" secondAttribute="bottom" constant="16" id="ifd-2L-gPq"/>
+                            <constraint firstItem="W2V-cE-oQT" firstAttribute="trailing" secondItem="ZlB-nv-B8h" secondAttribute="trailing" id="mch-RL-k9Z"/>
+                            <constraint firstItem="ZlB-nv-B8h" firstAttribute="height" secondItem="fzp-EK-lbR" secondAttribute="height" multiplier="0.5" id="nvK-j1-WyR"/>
+                            <constraint firstItem="FMW-g5-Sno" firstAttribute="leading" secondItem="W2V-cE-oQT" secondAttribute="leading" id="pnW-zD-auX"/>
+                            <constraint firstItem="W2V-cE-oQT" firstAttribute="trailing" secondItem="FMW-g5-Sno" secondAttribute="trailing" id="qBQ-2J-1tp"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="W2V-cE-oQT"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="기록" image="HistoryIcon" id="VoK-6s-z0p"/>
+                    <navigationItem key="navigationItem" title="History" id="lId-Td-LBx"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SwS-VC-0qG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1071" y="903"/>
+            <point key="canvasLocation" x="2012" y="902.95566502463055"/>
         </scene>
         <!--더보기-->
         <scene sceneID="8d0-5G-Cur">
@@ -42,7 +89,7 @@
             </objects>
             <point key="canvasLocation" x="1071" y="1659"/>
         </scene>
-        <!--DailyTODO-->
+        <!--Todolist-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="TODOLIST" customModuleProvider="target" sceneMemberID="viewController">
@@ -531,7 +578,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="DailyTODO" id="Ktk-OA-G3W">
+                    <navigationItem key="navigationItem" title="Todolist" id="Ktk-OA-G3W">
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="PAj-jU-LYO">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
@@ -1068,7 +1115,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="3Uy-Id-mQA" kind="relationship" relationship="viewControllers" id="OHz-RX-YQx"/>
-                        <segue destination="jBa-Ow-4o3" kind="relationship" relationship="viewControllers" id="3mk-Jd-Piq"/>
+                        <segue destination="Vxo-ay-tTN" kind="relationship" relationship="viewControllers" id="3mk-Jd-Piq"/>
                         <segue destination="cLG-0n-fdK" kind="relationship" relationship="viewControllers" id="db0-sH-Zm5"/>
                     </connections>
                 </tabBarController>
@@ -1264,6 +1311,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dC0-e6-g4x" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2014" y="-556"/>
+        </scene>
+        <!--기록-->
+        <scene sceneID="Mss-pg-ldV">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Vxo-ay-tTN" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="기록" image="HistoryIcon" id="VoK-6s-z0p"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="2QM-6N-Q9j">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="jBa-Ow-4o3" kind="relationship" relationship="rootViewController" id="fyD-RQ-Ehu"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bDp-dY-L9g" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1069.5999999999999" y="902.95566502463055"/>
         </scene>
     </scenes>
     <resources>
