@@ -62,11 +62,12 @@ class ViewController: UIViewController {
         tomorrowTableView.delegate = self
         tomorrowTableView.dataSource = self
         
-        
+        fetchAndReloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        fetchAndReloadData()
+        super.viewWillAppear(animated)
+        
     }
     
     func setupLocationManager() {
@@ -173,6 +174,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        let context = CoreDataStack.shared.persistentContainer.viewContext
         if editingStyle == .delete {
             
             if tableView == todayTableView {
