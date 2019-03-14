@@ -74,7 +74,7 @@ class NotificationProcessor {
         }
     }
     
-    class func removeLocationNofitication(task: Task) {
+    class func removeLocationNotification(task: Task) {
         let identifire = "L" + "\(task.classifiedTime!)"
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [identifire])
         print("\(identifire)의 알림이 삭제되었습니다.")

@@ -58,7 +58,7 @@ class TodayTableViewCell: UITableViewCell {
                 NotificationProcessor.removeTimeNotification(task: task!)
             }
             if task?.alarmLocation != nil {
-                NotificationProcessor.removeTimeNotification(task: task!)
+                NotificationProcessor.removeLocationNotification(task: task!)
             }
             alarmOnOffButton.isSelected = false
         } else {

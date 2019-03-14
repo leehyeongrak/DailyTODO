@@ -21,6 +21,7 @@
 		395B6D7322299C220088B687 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393DCE7A221AB387003B26BA /* AppDelegate.swift */; };
 		395B6D962229AE920088B687 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395B6D952229AE920088B687 /* CoreDataStack.swift */; };
 		395B6D972229AFE70088B687 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395B6D952229AE920088B687 /* CoreDataStack.swift */; };
+		399DDDCF223A2D5100767E22 /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399DDDCE223A2D5100767E22 /* HistoryTableViewCell.swift */; };
 		39A3F35A2223DB6D006CFB2A /* map_pinup_custom@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 39A3F3342223DB6D006CFB2A /* map_pinup_custom@3x.png */; };
 		39A3F35B2223DB6D006CFB2A /* map_pin_custom.png in Resources */ = {isa = PBXBuildFile; fileRef = 39A3F3352223DB6D006CFB2A /* map_pin_custom.png */; };
 		39A3F35C2223DB6D006CFB2A /* shadow_balloon.png in Resources */ = {isa = PBXBuildFile; fileRef = 39A3F3362223DB6D006CFB2A /* shadow_balloon.png */; };
@@ -130,6 +131,7 @@
 		395B6D6F222975B90088B687 /* Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Widget.entitlements; sourceTree = "<group>"; };
 		395B6D70222992FA0088B687 /* TODOLIST.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TODOLIST.entitlements; sourceTree = "<group>"; };
 		395B6D952229AE920088B687 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		399DDDCE223A2D5100767E22 /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
 		39A3F3342223DB6D006CFB2A /* map_pinup_custom@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_pinup_custom@3x.png"; sourceTree = "<group>"; };
 		39A3F3352223DB6D006CFB2A /* map_pin_custom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_pin_custom.png; sourceTree = "<group>"; };
 		39A3F3362223DB6D006CFB2A /* shadow_balloon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shadow_balloon.png; sourceTree = "<group>"; };
@@ -274,14 +276,31 @@
 		393DCE90221AB709003B26BA /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				393DCE7C221AB387003B26BA /* ViewController.swift */,
+				398BE1E72230FC950040C8DC /* TodolistTapViewControllers */,
 				393DCE8C221AB6FB003B26BA /* HistoryViewController.swift */,
-				392F52392227EFE2001C3F96 /* BedtimeSetViewController.swift */,
 				393DCE8E221AB703003B26BA /* MoreViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		398BE1E72230FC950040C8DC /* TodolistTapViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				393DCE7C221AB387003B26BA /* ViewController.swift */,
+				392F52392227EFE2001C3F96 /* BedtimeSetViewController.swift */,
 				39E08F6F221CE3200029C1B3 /* WriteViewController.swift */,
 				39A3F38D2223E00C006CFB2A /* MapViewController.swift */,
 			);
-			path = ViewControllers;
+			path = TodolistTapViewControllers;
+			sourceTree = "<group>";
+		};
+		399DDDD0223A2D5B00767E22 /* TodolistTapTableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				39F5A3102226D0BE00ED7579 /* TodayTableViewCell.swift */,
+				39F5A3122226D10400ED7579 /* TomorrowTableViewCell.swift */,
+			);
+			path = TodolistTapTableViewCells;
 			sourceTree = "<group>";
 		};
 		39A3F3322223DB6D006CFB2A /* DaumMap.embeddedframework */ = {
@@ -364,8 +383,8 @@
 		39F5A3142226D10E00ED7579 /* TableVIewCells */ = {
 			isa = PBXGroup;
 			children = (
-				39F5A3102226D0BE00ED7579 /* TodayTableViewCell.swift */,
-				39F5A3122226D10400ED7579 /* TomorrowTableViewCell.swift */,
+				399DDDD0223A2D5B00767E22 /* TodolistTapTableViewCells */,
+				399DDDCE223A2D5100767E22 /* HistoryTableViewCell.swift */,
 			);
 			path = TableVIewCells;
 			sourceTree = "<group>";
@@ -614,6 +633,7 @@
 				393DCE7D221AB387003B26BA /* ViewController.swift in Sources */,
 				395B6D962229AE920088B687 /* CoreDataStack.swift in Sources */,
 				3915EB2D221EF2EF00B5857D /* TODOLIST.xcdatamodeld in Sources */,
+				399DDDCF223A2D5100767E22 /* HistoryTableViewCell.swift in Sources */,
 				39A3F397222507BD006CFB2A /* LocationSearchResult.swift in Sources */,
 				392F523A2227EFE2001C3F96 /* BedtimeSetViewController.swift in Sources */,
 				39E08F70221CE3200029C1B3 /* WriteViewController.swift in Sources */,
