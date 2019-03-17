@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 import UserNotifications
 import CoreLocation
+import NotificationCenter
 
 class ViewController: UIViewController {
     
@@ -55,19 +56,19 @@ class ViewController: UIViewController {
         center.requestAuthorization(options: options) { (didAllow, error) in
         }
         
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+        
         setupLocationManager()
         
         todayTableView.delegate = self
         todayTableView.dataSource = self
         tomorrowTableView.delegate = self
         tomorrowTableView.dataSource = self
-        
-        fetchAndReloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        fetchAndReloadData()
     }
     
     func setupLocationManager() {
@@ -120,6 +121,10 @@ class ViewController: UIViewController {
         
         self.todayTableView.reloadData()
         self.tomorrowTableView.reloadData()
+    }
+    
+    @objc func applicationWillEnterForeground() {
+        fetchAndReloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -245,3 +250,4 @@ extension ViewController: UNUserNotificationCenterDelegate {
 
 extension ViewController: CLLocationManagerDelegate {
 }
+

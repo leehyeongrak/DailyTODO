@@ -9,6 +9,7 @@
 import UIKit
 import FSCalendar
 import CoreData
+import NotificationCenter
 
 class HistoryViewController: UIViewController {
     
@@ -33,6 +34,9 @@ class HistoryViewController: UIViewController {
         navigationController?.navigationBar.barTintColor = .white
         navigationController?.navigationBar.shadowImage = UIImage()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+        
+        
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -40,12 +44,9 @@ class HistoryViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        fetchData()
+        fetchAndReloadData()
         selectedTasks = todayTasks
-        
         setupOutlets()
-        
-        tableView.reloadData()
     }
     
     func setupOutlets() {
@@ -72,7 +73,7 @@ class HistoryViewController: UIViewController {
         }
     }
     
-    func fetchData() {
+    func fetchAndReloadData() {
         do {
             tasks = try context.fetch(Task.fetchRequest())
             
@@ -96,9 +97,16 @@ class HistoryViewController: UIViewController {
                 calendarView.deselect(selectedDate)
             }
             calendarView.reloadData()
+            tableView.reloadData()
         } catch  {
             print("Fetching Failed")
         }
+    }
+    
+    @objc func applicationWillEnterForeground() {
+        fetchAndReloadData()
+        selectedTasks = todayTasks
+        setupOutlets()
     }
 }
 
@@ -182,7 +190,6 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "HistoryCell", for: indexPath) as? HistoryTableViewCell else { return UITableViewCell() }
         let task = selectedTasks[indexPath.row]
-        print(task)
         cell.taskLabel.text = task.todoText
         cell.checkDoneButton.isSelected = task.checkDone
         return cell
