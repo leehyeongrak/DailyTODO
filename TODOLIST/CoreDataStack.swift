@@ -17,6 +17,11 @@ final class CoreDataStack {
     //#1
     lazy var persistentContainer: PersistentContainer = {
         let container = PersistentContainer(name: "TODOLIST")
+        
+//        container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        container.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
+//        container.viewContext.automaticallyMergesChangesFromParent = true
+        
         container.loadPersistentStores(completionHandler: { [weak self](storeDescription, error) in
             if let error = error {
                 NSLog("CoreData error \(error), \(error._userInfo)")
@@ -34,7 +39,7 @@ final class CoreDataStack {
     //#3
     // Optional
     lazy var backgroundContext: NSManagedObjectContext = {
-        return self.persistentContainer.newBackgroundContext()
+        return CoreDataStack.shared.persistentContainer.newBackgroundContext()
     }()
     
     //#4
@@ -51,7 +56,7 @@ final class CoreDataStack {
     
     // CoreData
     
-    func saveContext () {
+    func saveContext() {
         let context = persistentContainer.viewContext
         if context.hasChanges {
             do {
