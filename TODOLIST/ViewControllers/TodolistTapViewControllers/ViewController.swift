@@ -144,7 +144,9 @@ extension ViewController: AddTaskDelegate {
         fetchAndReloadData()
         
         if task.alarmTime != nil {
-            NotificationProcessor.addTimeNotification(task: task)
+            if task.alarmTime! > Date() {
+                NotificationProcessor.addTimeNotification(task: task)
+            }
         }
         
         if task.alarmLocation != nil {

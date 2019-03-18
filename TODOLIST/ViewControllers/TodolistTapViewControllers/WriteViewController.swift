@@ -88,6 +88,9 @@ class WriteViewController: UIViewController {
         if timeSettingButton.state == .selected {
             task.alarmOnOff = true
             if isToday {
+                if timePicker.date < Date() {
+                    task.alarmOnOff = false
+                }
                 task.alarmTime = timePicker.date
             } else {
                 task.alarmTime = timePicker.date.addingTimeInterval(86400)
