@@ -8,8 +8,9 @@
 
 import UIKit
 import CoreData
+import MessageUI
 
-class MoreViewController: UIViewController {
+class MoreViewController: UIViewController, MFMailComposeViewControllerDelegate {
     
     @IBAction func tappedResetButton(_ sender: UIButton) {
         let alert = UIAlertController(title: nil, message: "데이터를 초기화 하시겠습니까?", preferredStyle: .alert)
@@ -31,10 +32,32 @@ class MoreViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     @IBAction func tappedQuestionButton(_ sender: UIButton) {
+        let mailComposeViewController = configuredMailComposeViewController()
+        if MFMailComposeViewController.canSendMail() {
+            present(mailComposeViewController, animated: true, completion: nil)
+        } else {
+            let alert = UIAlertController(title: "메일 전송에 실패하였습니다", message: "이메일 설정을 확인하고 다시 시도해주세요", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "확인", style: .cancel, handler: nil))
+            present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func configuredMailComposeViewController() -> MFMailComposeViewController {
+        let mailComposeViewController = MFMailComposeViewController()
+        mailComposeViewController.mailComposeDelegate = self
+        mailComposeViewController.setToRecipients(["leehrak@gmail.com"])
+        mailComposeViewController.setSubject("DailyTODO 문의하기")
+        mailComposeViewController.setMessageBody("소중한 의견을 주셔서 감사합니다.", isHTML: false)
+        
+        return mailComposeViewController
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func tappedDeveloperButton(_ sender: UIButton) {
-        let alert = UIAlertController(title: nil, message: "HYEONGRAK LEE🇰🇷", preferredStyle: .alert)
+        let alert = UIAlertController(title: "데일리투두의 개발자", message: "이형락(HYEONGRAK LEE)\nleehrak@gmail.com", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "확인", style: .cancel, handler: nil))
         present(alert, animated: true, completion: nil)
     }
