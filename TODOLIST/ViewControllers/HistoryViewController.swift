@@ -17,6 +17,7 @@ class HistoryViewController: UIViewController {
     var tasks: [Task] = []
     var todayTasks: [Task] = []
     var selectedTasks: [Task] = []
+    var currentTasks: [Task] = []
     
     @IBOutlet var selectedDateLabel: UILabel!
     @IBOutlet var taskCountLabel: UILabel!
@@ -25,7 +26,7 @@ class HistoryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         let attrs = [
             NSAttributedString.Key.foregroundColor: UIColor.darkGray,
             NSAttributedString.Key.font: UIFont(name: "Apple Color Emoji", size: 20)!
@@ -43,10 +44,7 @@ class HistoryViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         fetchAndReloadData()
-        selectedTasks = todayTasks
-        setupOutlets()
     }
     
     func setupOutlets() {
@@ -74,33 +72,34 @@ class HistoryViewController: UIViewController {
     }
     
     func fetchAndReloadData() {
+        calendarView.select(Date())
+        
         do {
             tasks = try context.fetch(Task.fetchRequest())
-            
-            var tempTodays: [Task] = []
-            
-            for task in tasks {
-                let date = task.classifiedTime
+            todayTasks = tasks.filter({ (task) -> Bool in
                 let calendar = Calendar.current
+                
+                let date = task.classifiedTime
                 let dateComponent = calendar.dateComponents([.year, .month, .day], from: date!)
                 
                 let currentDate = Date()
                 let currentDateComponent = calendar.dateComponents([.year, .month, .day], from: currentDate)
                 
                 if dateComponent.year! == currentDateComponent.year! && dateComponent.month! == currentDateComponent.month! && dateComponent.day! == currentDateComponent.day! {
-                    tempTodays.append(task)
-                } 
-            }
-            todayTasks = tempTodays
-            
-            if let selectedDate = calendarView.selectedDate {
-                calendarView.deselect(selectedDate)
-            }
-            calendarView.reloadData()
-            tableView.reloadData()
-        } catch  {
+                    return true
+                } else {
+                    return false
+                }
+            })
+        } catch {
             print("Fetching Failed")
         }
+        
+        selectedTasks = todayTasks
+        setupOutlets()
+        
+        calendarView.reloadData()
+        tableView.reloadData()
     }
     
     @objc func applicationWillEnterForeground() {
