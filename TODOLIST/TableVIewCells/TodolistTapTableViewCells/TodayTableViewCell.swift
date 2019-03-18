@@ -55,7 +55,9 @@ class TodayTableViewCell: UITableViewCell {
         
         if task!.alarmOnOff {
             if task?.alarmTime != nil {
-                NotificationProcessor.removeTimeNotification(task: task!)
+                if (task?.alarmTime)! > Date() {
+                    NotificationProcessor.removeTimeNotification(task: task!)
+                }
             }
             if task?.alarmLocation != nil {
                 NotificationProcessor.removeLocationNotification(task: task!)
@@ -63,7 +65,9 @@ class TodayTableViewCell: UITableViewCell {
             alarmOnOffButton.isSelected = false
         } else {
             if task?.alarmTime != nil {
-                NotificationProcessor.addTimeNotification(task: task!)
+                if (task?.alarmTime)! > Date() {
+                    NotificationProcessor.addTimeNotification(task: task!)
+                }
             }
             if task?.alarmLocation != nil {
                 NotificationProcessor.addLocationNotification(task: task!)
@@ -99,11 +103,15 @@ class TodayTableViewCell: UITableViewCell {
             } else {
                 alarmTimeLabel.text = dateFormatter.string(from: task.alarmTime!)
                 if task.alarmOnOff {
-//                    NotificationProcessor.addTimeNotification(task: task)
-                    alarmOnOffButton.isSelected = true
+                    if task.alarmTime! < Date() {
+                        alarmOnOffButton.isSelected = false
+                    } else {
+                        alarmOnOffButton.isSelected = true
+                    }
                 } else {
                     alarmOnOffButton.isSelected = false
                 }
+                
             }
             
             // 장소설정 여부에 따른 옵셔널값 처리
@@ -114,7 +122,6 @@ class TodayTableViewCell: UITableViewCell {
                 let roadAddress = task.alarmLocation!["roadAddressName"] as! String
                 alarmLocationLabel.text = "\(place)(\(roadAddress))"
                 if task.alarmOnOff {
-//                    NotificationProcessor.addLocationNotification(task: task)
                     alarmOnOffButton.isSelected = true
                 } else {
                     alarmOnOffButton.isSelected = false

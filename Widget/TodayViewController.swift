@@ -126,7 +126,9 @@ class WidgetTableViewCell: UITableViewCell {
 
         if task!.alarmOnOff {
             if task?.alarmTime != nil {
-                NotificationProcessor.removeTimeNotification(task: task!)
+                if (task?.alarmTime)! > Date() {
+                    NotificationProcessor.removeTimeNotification(task: task!)
+                }
             }
             if task?.alarmLocation != nil {
                 NotificationProcessor.removeLocationNotification(task: task!)
@@ -134,7 +136,9 @@ class WidgetTableViewCell: UITableViewCell {
             alarmOnOffButton.isSelected = false
         } else {
             if task?.alarmTime != nil {
-                NotificationProcessor.addTimeNotification(task: task!)
+                if (task?.alarmTime)! > Date() {
+                    NotificationProcessor.addTimeNotification(task: task!)
+                }
             }
             if task?.alarmLocation != nil {
                 NotificationProcessor.addLocationNotification(task: task!)
@@ -150,7 +154,31 @@ class WidgetTableViewCell: UITableViewCell {
         guard let task = self.task else { return }
         
         todoLabel.text = task.todoText
-        alarmOnOffButton.isSelected = task.alarmOnOff
+        
+        // 시간설정 여부에 따른 옵셔널값 처리
+        if task.alarmTime == nil {
+        } else {
+            if task.alarmOnOff {
+                if task.alarmTime! < Date() {
+                    alarmOnOffButton.isSelected = false
+                } else {
+                    alarmOnOffButton.isSelected = true
+                }
+            } else {
+                alarmOnOffButton.isSelected = false
+            }
+        }
+        
+        // 장소설정 여부에 따른 옵셔널값 처리
+        if task.alarmLocation == nil {
+        } else {
+            if task.alarmOnOff {
+                alarmOnOffButton.isSelected = true
+            } else {
+                alarmOnOffButton.isSelected = false
+            }
+        }
+        
         checkDoneButton.isSelected = task.checkDone
     }
     
