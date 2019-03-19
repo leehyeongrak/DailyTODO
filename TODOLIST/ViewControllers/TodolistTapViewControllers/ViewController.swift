@@ -141,7 +141,7 @@ class ViewController: UIViewController {
             vc.dismissViewControllerDelegate = self
         }
         self.navigationController?.view.addSubview(coverView)
-        UIView.animate(withDuration: 0.3) { self.coverView.alpha = 0.5 }
+        UIView.animate(withDuration: 0.3) { self.coverView.alpha = 0.6 }
     }
 }
 
