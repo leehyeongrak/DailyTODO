@@ -32,7 +32,7 @@ class MapViewController: UIViewController, MTMapViewDelegate, UITextFieldDelegat
             self.delegate?.setLocation(location: selectedLocation!)
             dismiss(animated: true, completion: nil)
         } else {
-            let alert = UIAlertController(title: nil, message: "장소를 선택해주세요📌", preferredStyle: .alert)
+            let alert = UIAlertController(title: nil, message: "장소를 선택해주세요.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             present(alert, animated: true, completion: nil)
         }
@@ -47,7 +47,7 @@ class MapViewController: UIViewController, MTMapViewDelegate, UITextFieldDelegat
         resultMapView.delegate = self
         
         resultPlaceNameLabel.text = "장소를 검색해주세요!"
-        resultAddressNameLabel.text = "설정된 장소를 지날 때 알림을 드립니다🤗"
+        resultAddressNameLabel.text = "설정된 장소를 지날 때 알림을 드립니다."
         
         var panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGestureRecognizerHandler))
         self.view.addGestureRecognizer(panGesture)

@@ -67,7 +67,7 @@ class WriteViewController: UIViewController {
     
     @IBAction func tappedWriteButton(_ sender: UIButton) {
         if todoTextField.text == "" {
-            let alert = UIAlertController(title: nil, message: "할 일을 입력해주세요✍🏻", preferredStyle: .alert)
+            let alert = UIAlertController(title: nil, message: "할 일을 입력해주세요.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             present(alert, animated: true, completion: nil)
             

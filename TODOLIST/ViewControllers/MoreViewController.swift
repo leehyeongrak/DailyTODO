@@ -38,7 +38,7 @@ class MoreViewController: UIViewController, MFMailComposeViewControllerDelegate 
         if MFMailComposeViewController.canSendMail() {
             present(mailComposeViewController, animated: true, completion: nil)
         } else {
-            let alert = UIAlertController(title: "메일 전송에 실패하였습니다", message: "이메일 설정을 확인하고 다시 시도해주세요", preferredStyle: .alert)
+            let alert = UIAlertController(title: "메일 전송에 실패하였습니다.", message: "이메일 설정을 확인하고 다시 시도해주세요.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "확인", style: .cancel, handler: nil))
             present(alert, animated: true, completion: nil)
         }
