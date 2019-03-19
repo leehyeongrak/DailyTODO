@@ -9,11 +9,12 @@
 import UIKit
 import CoreData
 import MessageUI
+import UserNotifications
 
 class MoreViewController: UIViewController, MFMailComposeViewControllerDelegate {
     
     @IBAction func tappedResetButton(_ sender: UIButton) {
-        let alert = UIAlertController(title: nil, message: "데이터를 초기화 하시겠습니까?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "데이터를 초기화 하시겠습니까?", message: "초기화된 데이터는 복구할 수 없습니다.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "네", style: .default, handler: { (action) in
             let context = CoreDataStack.shared.persistentContainer.viewContext
             
@@ -27,6 +28,7 @@ class MoreViewController: UIViewController, MFMailComposeViewControllerDelegate 
                 print(error)
             }
             CoreDataStack.shared.saveContext()
+            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         }))
         alert.addAction(UIAlertAction(title: "아니요", style: .cancel, handler: nil))
         present(alert, animated: true, completion: nil)
