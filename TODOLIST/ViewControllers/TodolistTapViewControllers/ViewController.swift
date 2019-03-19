@@ -37,6 +37,8 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var currentTimeLabel: UILabel!
     
+    let coverView = UIView()
+    
     // ViewDidLoad() //////////////////////////////////////////////////
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +49,11 @@ class ViewController: UIViewController {
         navigationController?.navigationBar.titleTextAttributes = attrs
         navigationController?.navigationBar.barTintColor = .white
         navigationController?.navigationBar.shadowImage = UIImage()
+        
+        coverView.backgroundColor = .black
+        coverView.alpha = 0
+        coverView.frame = view.bounds
+        coverView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy. MM. dd. EEEE"
@@ -77,7 +84,6 @@ class ViewController: UIViewController {
         locationManager.startUpdatingLocation()
         locationManager.distanceFilter = kCLDistanceFilterNone
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-//        locationManager.startMonitoringSignificantLocationChanges()
         alwaysAuthorization()
     }
     
@@ -129,14 +135,23 @@ class ViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? WriteViewController {
-            vc.delegate = self
+            vc.addTaskDelegate = self
+            vc.dismissViewControllerDelegate = self
+        } else if let vc = segue.destination as? BedtimeSetViewController {
+            vc.dismissViewControllerDelegate = self
         }
+        self.navigationController?.view.addSubview(coverView)
+        UIView.animate(withDuration: 0.3) { self.coverView.alpha = 0.5 }
     }
 }
 
 // Protocols & Extensions //////////////////////////////////////////////////
 protocol AddTaskDelegate {
     func addTask(task: Task)
+}
+
+protocol DismissViewControllerDelegate {
+    func removeCoverView()
 }
 
 extension ViewController: AddTaskDelegate {
@@ -153,6 +168,16 @@ extension ViewController: AddTaskDelegate {
             NotificationProcessor.addLocationNotification(task: task)
         }
         
+    }
+}
+
+extension ViewController: DismissViewControllerDelegate {
+    func removeCoverView() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.coverView.alpha = 0
+        }) { (bool) in
+            self.coverView.removeFromSuperview()
+        }
     }
 }
 

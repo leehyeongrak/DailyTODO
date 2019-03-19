@@ -10,6 +10,8 @@ import UIKit
 
 class BedtimeSetViewController: UIViewController {
     
+    var dismissViewControllerDelegate: DismissViewControllerDelegate?
+    
     @IBOutlet var bedtimeLabel: UILabel!
     @IBOutlet var bedtimeSetButton: UIButton!
     @IBOutlet var bedtimePicker: UIDatePicker!
@@ -20,6 +22,7 @@ class BedtimeSetViewController: UIViewController {
     }
     @IBAction func tappedClosedButton(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
+        self.dismissViewControllerDelegate?.removeCoverView()
     }
     @IBAction func tappedSetButton(_ sender: UIButton) {
         if bedtimeSetButton.isSelected {
@@ -32,6 +35,7 @@ class BedtimeSetViewController: UIViewController {
             NotificationProcessor.removeBedtimeNotification()
         }
         self.dismiss(animated: true, completion: nil)
+        self.dismissViewControllerDelegate?.removeCoverView()
     }
     
     override func viewDidLoad() {
