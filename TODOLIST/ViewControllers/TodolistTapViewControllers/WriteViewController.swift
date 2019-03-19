@@ -12,7 +12,8 @@ import MapKit
 
 class WriteViewController: UIViewController {
     
-    var delegate: AddTaskDelegate?
+    var addTaskDelegate: AddTaskDelegate?
+    var dismissViewControllerDelegate: DismissViewControllerDelegate?
     
     var isToday: Bool! {
         didSet {
@@ -109,11 +110,13 @@ class WriteViewController: UIViewController {
         CoreDataStack.shared.saveContext()
 
         self.dismiss(animated: true, completion: nil)
-        self.delegate?.addTask(task: task)
+        self.addTaskDelegate?.addTask(task: task)
+        self.dismissViewControllerDelegate?.removeCoverView()
     }
     
     @IBAction func tappedCloseButton(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
+        self.dismissViewControllerDelegate?.removeCoverView()
     }
     
     override func viewDidLoad() {

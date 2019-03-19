@@ -1063,7 +1063,6 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="nvF-AP-Cbq" firstAttribute="trailing" secondItem="5sY-T1-6Ij" secondAttribute="trailing" id="0qp-11-HUa"/>
                             <constraint firstItem="9sy-G0-NPI" firstAttribute="top" secondItem="BGa-UI-Zxf" secondAttribute="bottom" id="4QW-ey-gNW"/>
@@ -1482,7 +1481,6 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="0Eh-PR-i8s" firstAttribute="bottom" secondItem="Ncu-dr-YlP" secondAttribute="bottom" id="1p2-0I-e6M"/>
                             <constraint firstItem="EmP-RV-DzE" firstAttribute="leading" secondItem="0Eh-PR-i8s" secondAttribute="leading" id="8XB-Wk-eXh"/>
