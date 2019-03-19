@@ -12,6 +12,8 @@ class MapViewController: UIViewController, MTMapViewDelegate, UITextFieldDelegat
     
     var delegate: SetLocationDelegate?
     
+    var initialTouchPoint: CGPoint = CGPoint(x: 0,y: 0)
+    
     var searchResult: LocationSearchResult?
     var selectedLocation: Location?
     
@@ -46,6 +48,29 @@ class MapViewController: UIViewController, MTMapViewDelegate, UITextFieldDelegat
         
         resultPlaceNameLabel.text = "장소를 검색해주세요!"
         resultAddressNameLabel.text = "설정된 장소를 지날 때 알림을 드립니다🤗"
+        
+        var panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGestureRecognizerHandler))
+        self.view.addGestureRecognizer(panGesture)
+    }
+    
+    @objc func panGestureRecognizerHandler(_ sender: UIPanGestureRecognizer) {
+        let touchPoint = sender.location(in: self.view?.window)
+        
+        if sender.state == UIGestureRecognizer.State.began {
+            initialTouchPoint = touchPoint
+        } else if sender.state == UIGestureRecognizer.State.changed {
+            if touchPoint.y - initialTouchPoint.y > 0 {
+                self.view.frame = CGRect(x: 0, y: touchPoint.y - initialTouchPoint.y, width: self.view.frame.size.width, height: self.view.frame.size.height)
+            }
+        } else if sender.state == UIGestureRecognizer.State.ended || sender.state == UIGestureRecognizer.State.cancelled {
+            if touchPoint.y - initialTouchPoint.y > 200 {
+                self.dismiss(animated: true, completion: nil)
+            } else {
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.view.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+                })
+            }
+        }
     }
     
     func setupMapView(lattitude: String, longitude: String) {
