@@ -127,7 +127,7 @@ class WriteViewController: UIViewController {
         
         locationMapView.isUserInteractionEnabled = false
         
-        var panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGestureRecognizerHandler))
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGestureRecognizerHandler))
         self.view.addGestureRecognizer(panGesture)
     }
     
