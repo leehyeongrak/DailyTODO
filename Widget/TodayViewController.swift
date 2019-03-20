@@ -126,9 +126,7 @@ class WidgetTableViewCell: UITableViewCell {
 
         if task!.alarmOnOff {
             if task?.alarmTime != nil {
-                if (task?.alarmTime)! > Date() {
-                    NotificationProcessor.removeTimeNotification(task: task!)
-                }
+                NotificationProcessor.removeTimeNotification(task: task!)
             }
             if task?.alarmLocation != nil {
                 NotificationProcessor.removeLocationNotification(task: task!)
@@ -136,9 +134,7 @@ class WidgetTableViewCell: UITableViewCell {
             alarmOnOffButton.isSelected = false
         } else {
             if task?.alarmTime != nil {
-                if (task?.alarmTime)! > Date() {
-                    NotificationProcessor.addTimeNotification(task: task!)
-                }
+                NotificationProcessor.addTimeNotification(task: task!)
             }
             if task?.alarmLocation != nil {
                 NotificationProcessor.addLocationNotification(task: task!)
@@ -159,11 +155,7 @@ class WidgetTableViewCell: UITableViewCell {
         if task.alarmTime == nil {
         } else {
             if task.alarmOnOff {
-                if task.alarmTime! < Date() {
-                    alarmOnOffButton.isSelected = false
-                } else {
-                    alarmOnOffButton.isSelected = true
-                }
+                alarmOnOffButton.isSelected = true
             } else {
                 alarmOnOffButton.isSelected = false
             }

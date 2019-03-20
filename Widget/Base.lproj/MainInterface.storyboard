@@ -72,6 +72,7 @@
                                                 <constraint firstItem="sU8-nf-NZB" firstAttribute="centerY" secondItem="8qG-fh-AMH" secondAttribute="centerY" id="vbH-MZ-xKf"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <inset key="separatorInset" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
                                         <connections>
                                             <outlet property="alarmOnOffButton" destination="sU8-nf-NZB" id="9OD-BO-eSz"/>
                                             <outlet property="checkDoneButton" destination="UqA-be-Ay6" id="pEm-Yt-6Mw"/>
