@@ -44,7 +44,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         let attrs = [
             NSAttributedString.Key.foregroundColor: UIColor.darkGray,
-            NSAttributedString.Key.font: UIFont(name: "Apple Color Emoji", size: 20)!
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: .semibold)
         ]
         navigationController?.navigationBar.titleTextAttributes = attrs
         navigationController?.navigationBar.barTintColor = .white
