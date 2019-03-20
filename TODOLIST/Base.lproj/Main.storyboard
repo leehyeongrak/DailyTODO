@@ -28,11 +28,11 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TaskCount" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dfU-2S-ix3">
-                                        <rect key="frame" x="319" y="16" width="40" height="17"/>
+                                        <rect key="frame" x="299" y="16" width="60" height="17"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <color key="tintColor" red="0.76542097330093384" green="0.13098716735839844" blue="0.1248215064406395" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="40" id="Xph-jm-0eS"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="Xph-jm-0eS"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1134,6 +1134,7 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
+                                                    <constraint firstItem="SBH-7X-DfS" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ICg-Np-kh9" secondAttribute="trailing" constant="16" id="2bU-UY-Xrn"/>
                                                     <constraint firstAttribute="trailing" secondItem="SBH-7X-DfS" secondAttribute="trailing" constant="16" id="C0p-A0-lA6"/>
                                                     <constraint firstItem="ICg-Np-kh9" firstAttribute="centerY" secondItem="0XQ-mG-pVb" secondAttribute="centerY" id="Txj-7r-okh"/>
                                                     <constraint firstItem="SBH-7X-DfS" firstAttribute="centerY" secondItem="0XQ-mG-pVb" secondAttribute="centerY" id="oEe-zD-npH"/>
