@@ -116,8 +116,13 @@ class ViewController: UIViewController {
                     
                     if dateTimeInterval! > currentDateTimeInterval {
                         tempTomorrows.append(task)
+                    } else {
+                        if task.alarmLocation != nil {
+                            deleteLocationNotification(task: task)
+                        }
                     }
                 }
+                
             }
             todayTasks = tempTodays
             tomorrowTasks = tempTomorrows
@@ -127,6 +132,17 @@ class ViewController: UIViewController {
         
         self.todayTableView.reloadData()
         self.tomorrowTableView.reloadData()
+    }
+    
+    func deleteLocationNotification(task: Task) {
+        UNUserNotificationCenter.current().getPendingNotificationRequests { (requests) in
+            for request in requests {
+                let identifire = "L" + "\(task.classifiedTime!)"
+                if request.identifier == identifire {
+                    NotificationProcessor.removeLocationNotification(task: task)
+                }
+            }
+        }
     }
     
     @objc func applicationWillEnterForeground() {
