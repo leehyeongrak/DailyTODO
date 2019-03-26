@@ -51,8 +51,6 @@
 		39A3F3742223DB6D006CFB2A /* daum_th_line.png in Resources */ = {isa = PBXBuildFile; fileRef = 39A3F3572223DB6D006CFB2A /* daum_th_line.png */; };
 		39A3F3752223DB6D006CFB2A /* map_pin_shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 39A3F3582223DB6D006CFB2A /* map_pin_shadow.png */; };
 		39A3F3762223DB6D006CFB2A /* DaumMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39A3F3592223DB6D006CFB2A /* DaumMap.framework */; };
-		39A3F3772223DBE8006CFB2A /* DaumMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39A3F3592223DB6D006CFB2A /* DaumMap.framework */; };
-		39A3F3782223DBE8006CFB2A /* DaumMap.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 39A3F3592223DB6D006CFB2A /* DaumMap.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		39A3F37C2223DC3E006CFB2A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39A3F37B2223DC3E006CFB2A /* OpenGLES.framework */; };
 		39A3F37E2223DC4C006CFB2A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39A3F37D2223DC4C006CFB2A /* SystemConfiguration.framework */; };
 		39A3F3802223DC59006CFB2A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39A3F37F2223DC59006CFB2A /* CoreLocation.framework */; };
@@ -87,17 +85,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		39A3F3792223DBE9006CFB2A /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				39A3F3782223DBE8006CFB2A /* DaumMap.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		39FA47FD2228481A00694BF6 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -205,7 +192,6 @@
 				39A3F37E2223DC4C006CFB2A /* SystemConfiguration.framework in Frameworks */,
 				39A3F37C2223DC3E006CFB2A /* OpenGLES.framework in Frameworks */,
 				39A3F3762223DB6D006CFB2A /* DaumMap.framework in Frameworks */,
-				39A3F3772223DBE8006CFB2A /* DaumMap.framework in Frameworks */,
 				39A3F3652223DB6D006CFB2A /* DaumMap in Frameworks */,
 				E40E9A2CD8DD054F61BB7AA3 /* Pods_TODOLIST.framework in Frameworks */,
 			);
@@ -422,7 +408,6 @@
 				393DCE73221AB387003B26BA /* Sources */,
 				393DCE74221AB387003B26BA /* Frameworks */,
 				393DCE75221AB387003B26BA /* Resources */,
-				39A3F3792223DBE9006CFB2A /* Embed Frameworks */,
 				39FA47FD2228481A00694BF6 /* Embed App Extensions */,
 				2175CC1AF73D5B37F744F305 /* [CP] Embed Pods Frameworks */,
 			);
@@ -744,7 +729,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -800,7 +785,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
