@@ -1,21 +1,27 @@
-##[데일리투두](<https://itunes.apple.com/kr/app/%EB%8D%B0%EC%9D%BC%EB%A6%AC%ED%88%AC%EB%91%90/id1457175437?mt=8>)
+## [데일리투두](<https://itunes.apple.com/kr/app/%EB%8D%B0%EC%9D%BC%EB%A6%AC%ED%88%AC%EB%91%90/id1457175437?mt=8>)
 
 > 버전 1.0 (2019.03.27)
 
 #### 매일 쓰는 투두리스트
 
 매일 투두리스트를 작성하는 습관을 들이세요!
+
 데일리투두는 오늘과 내일의 할 일만을 작성합니다.
 
 오늘 할 일에 집중하고 완수 했다면 체크해 주세요!
+
 매일 할 일을 잊지 않고 기록해두는 습관을 만들 수 있습니다.
 
 데일리투두는 할 일을 완수할 수 있도록 도움을 줍니다!
+
 시간 설정을 하시면 그 시간을 잊지 않도록 알림을 드려요.
+
 장소 설정을 하시면 그 장소를 지나치지 않도록 알림을 드려요.
+
 오늘 할 일을 위젯으로 한층 더 편리하게 확인할 수 있습니다.
 
 지난 일들의 기록을 되돌아보고 의욕을 키우세요!
+
 달력 형태로 지난 일들의 완수 여부를 한 눈에 볼 수 있어요.
 
 데일리투두를 활용해서 할 일을 쉽게 관리하세요!
@@ -45,4 +51,6 @@
 
 #### 스크린샷
 
-<img src="/Users/rak/Swift/TODOLIST/Screenshots/1.png" style="zoom:20%"> <img src="/Users/rak/Swift/TODOLIST/Screenshots/2.png" style="zoom:20%"><img src="/Users/rak/Swift/TODOLIST/Screenshots/3.png" style="zoom:20%"> <img src="/Users/rak/Swift/TODOLIST/Screenshots/4.png" style="zoom:20%"><img src="/Users/rak/Swift/TODOLIST/Screenshots/5.png" style="zoom:20%"> <img src="/Users/rak/Swift/TODOLIST/Screenshots/6.png" style="zoom:20%">
+<img src="https://github.com/leehyeongrak/DailyTODO/blob/master/Screenshots/1.png" width="300"> <img src="https://github.com/leehyeongrak/DailyTODO/blob/master/Screenshots/2.png" width="300">
+<img src="https://github.com/leehyeongrak/DailyTODO/blob/master/Screenshots/3.png" width="300"> <img src="https://github.com/leehyeongrak/DailyTODO/blob/master/Screenshots/4.png" width="300">
+<img src="https://github.com/leehyeongrak/DailyTODO/blob/master/Screenshots/5.png" width="300"> <img src="https://github.com/leehyeongrak/DailyTODO/blob/master/Screenshots/6.png" width="300">
